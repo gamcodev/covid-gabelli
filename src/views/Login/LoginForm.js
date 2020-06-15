@@ -6,7 +6,7 @@ import Button from 'muicss/lib/react/button';
 
 const LoginForm = (props) => {
   const [ user, setUser ] = useState({
-    userName: '',
+    email: '',
     password: '',
   })
 
@@ -14,7 +14,8 @@ const LoginForm = (props) => {
     const { name, value } = e.target
       setUser({ ...user, [name]: value })
     }
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
     props.onSubmit(user)
   }
 
@@ -22,9 +23,9 @@ const LoginForm = (props) => {
     <Form>
       <legend>Login</legend>
       <Input
-        placeholder="username"
-        name='userName'
-        value={ user.userName }
+        placeholder="email"
+        name='email'
+        value={ user.email }
         onChange={ handleOnChange }
       />
       <Input

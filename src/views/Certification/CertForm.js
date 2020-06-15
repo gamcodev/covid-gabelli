@@ -10,6 +10,14 @@ const NotPermitted = styled.div `
     color: red;
   }
 `
+const AttestationDiv = styled.div `
+  display: flex;
+  flex-direction: row;
+  span {
+    margin-top: 10px;
+    marginBottom: 10px;
+  }
+`
 
 const CertForm = (props) => {
 
@@ -25,12 +33,14 @@ const CertForm = (props) => {
     setResponses({ ...responses, [name]: value })
   }
 
-  const handleSubmit = () => {
-    props.onSubmit(responses)
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    props.onSubmit(responses, props.currentUser.id)
   }
 
   return (
     <div>
+
     { responses.cough === 'yes' || responses.fever === 'yes' || responses.positive === 'yes' || responses.quarantined === 'yes' ?
       <NotPermitted>
         <h2>You are not permitted to attend work in person. Please notify your manager.</h2>
@@ -56,7 +66,7 @@ const CertForm = (props) => {
 
           {  responses.fever && responses.fever === 'no' ?
             <div>
-              <span>Do you have a cough or shortness of breath that began within the past 14 days?</span>
+              <span >Do you have a cough or shortness of breath that began within the past 14 days?</span>
               <Radio
                 label='Yes'
                 name='cough'
@@ -114,9 +124,17 @@ const CertForm = (props) => {
               :
               null
             }
-
-          <Checkbox name="attest" label="I, {/* props.currentUser.name */}, attest that my responses are true and accurate to the best of my knowledge." />
-          <Button variant="raised" disabled={true} onClick={handleSubmit}>Submit</Button>
+          { responses.cough === 'no' && responses.fever === 'no' && responses.positive === 'no' && responses.positive === 'no' ?
+            <div>
+              <AttestationDiv>
+                <Checkbox name="attest" />
+                <span>I, { props.currentUser.first_name } { props.currentUser.last_name }, attest that my responses are true and accurate to the best of my knowledge.</span>
+              </AttestationDiv>
+              <Button variant="raised"  onClick={handleSubmit}>Submit</Button>
+            </div>
+            :
+            null
+          }
         </Form>
       </div>
     }

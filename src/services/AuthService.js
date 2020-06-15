@@ -13,8 +13,9 @@ const AuthService = {
   },
 
   login(user) {
-    return fetch(`${API_URL}/auth`, {
+    return fetch(`${API_URL}/users/login`, {
       method: 'POST',
+      credentials: 'include',
       headers: HEADERS(),
       body: JSON.stringify({ user })
     })
@@ -22,8 +23,9 @@ const AuthService = {
   },
 
   authenticate() {
-    return fetch(`${API_URL}/auth/refresh`, {
+    return fetch(`${API_URL}/users/refresh`, {
         method: 'POST',
+        credentials: 'include',
         headers: HEADERS(),
       })
       .then(response => response.json())

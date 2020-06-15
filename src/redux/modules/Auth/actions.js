@@ -47,7 +47,44 @@ export const headers = () => {
   }
 }
 
+export const login = (user) => {
+  return dispatch => {
+    dispatch(makeFetchRequest())
+    dispatch(authenticationRequest());
+    AuthService.login(user)
+      .then(body => {
+        console.log(body)
+        if (body.errors) {
+          dispatch(authenticationFailure(body.errors))
+          dispatch(finishFetchRequest())
+        } else {
+          localStorage.setItem('user', JSON.stringify(body))
+          localStorage.setItem('token', body.token);
+          dispatch(setCurrentUser(body))
+          dispatch(finishFetchRequest())
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+}
 
+export const authenticate = () => {
+  return dispatch => {
+    dispatch(authenticationRequest());
+    AuthService.authenticate()
+    .then(body => {
+      localStorage.setItem('token', body.token);
+      dispatch(setCurrentUser(body))
+    })
+    .catch(err => {
+      console.log(err)
+      localStorage.removeItem('token');
+      window.location = '/login';
+    });
+  }
+}
 
 export const signup = (user) => {
   return dispatch => {
@@ -73,44 +110,5 @@ export const signup = (user) => {
     .catch(err => {
       console.log(err)
     })
-  }
-}
-
-export const login = (user) => {
-  return dispatch => {
-    dispatch(makeFetchRequest())
-    dispatch(authenticationRequest());
-    AuthService.login(user)
-      .then(body => {
-        console.log(body)
-        if (body.errors) {
-          dispatch(authenticationFailure(body.errors))
-          dispatch(finishFetchRequest())
-        } else {
-          console.log(body.user)
-          localStorage.setItem('token', body.token);
-          dispatch(setCurrentUser(body.user))
-          dispatch(finishFetchRequest())
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
-}
-
-export const authenticate = () => {
-  return dispatch => {
-    dispatch(authenticationRequest());
-    AuthService.authenticate()
-    .then(body => {
-      localStorage.setItem('token', body.token);
-      dispatch(setCurrentUser(body.user))
-    })
-    .catch(err => {
-      console.log(err)
-      localStorage.removeItem('token');
-      window.location = '/login';
-    });
   }
 }

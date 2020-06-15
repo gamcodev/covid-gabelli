@@ -7,6 +7,7 @@ import RedirectUnauthenticated from '../components/RedirectUnauthenticated';
 import Header from '../components/Header'
 import Login from '../views/Login'
 import Certification from '../views/Certification'
+import ThankYou from '../views/ThankYou'
 import './App.css';
 
 type Props = {
@@ -34,13 +35,14 @@ class App extends Component {
   render() {
     const { currentUser, isAuthenticated, isAuthenticating, logout, errors } = this.props;
     const authProps = { isAuthenticated, isAuthenticating, currentUser, errors };
-
+    console.log(authProps)
     return (
       <Router>
         <Route path='/' render={ () => <Header isAuthenticated={isAuthenticated} logout={logout}/> }/>
         <Switch>
-          <Route path='/' exact component={ Certification } />
+          <MatchAuthenticated path='/' exact component={ Certification } {...authProps} />
           <RedirectUnauthenticated path='/login' exact component={ Login } { ...authProps } />
+          <Route path='/thankyou' exact component={ThankYou}/>
         </Switch>
       </Router>
     )

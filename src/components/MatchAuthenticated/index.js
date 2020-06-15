@@ -4,17 +4,15 @@ import { Route, Redirect } from 'react-router-dom';
 
 
 const MatchAuthenticated = (props) => {
-  // console.log(props)
   const Component = props.component
   return(
     <Route
       currentUser={props.currentUser}
       path={props.path}
-      cableApp={props.cableApp}
       render={() => {
-        if (props.isAuthenticated) { return <Component cableApp={props.cableApp} currentUser={props.currentUser} />; }
-        if (props.isAuthenticating) { return null; }
-        if (!props.isAuthenticating && !props.isAuthenticated) { return <Redirect to={{ pathname: '/login' }} />; }
+        if (props.isAuthenticated) { return <Component currentUser={props.currentUser} />; }
+
+        if (!props.isAuthenticated) { return <Redirect to={{ pathname: '/login' }} />; }
         return null;
       }}
     />
@@ -23,3 +21,5 @@ const MatchAuthenticated = (props) => {
 }
 
 export default MatchAuthenticated;
+
+// if (props.isAuthenticating) { return null; }

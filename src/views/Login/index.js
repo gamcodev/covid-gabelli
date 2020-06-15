@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../../redux/modules/Auth/actions';
 import LoginForm from './LoginForm';
@@ -14,14 +14,25 @@ const LoginContainer = styled.div `
 const Login = () => {
 
   const dispatch = useDispatch()
-  const handleLogin = useCallback((user) => {
+  const isAuthenicating = useSelector(state => state.auth.isAuthenicating)
+  const isAuthenicated = useSelector(state => state.auth.isAuthenicated)
+  const currentUser = useSelector(state => state.auth.currentUser)
+
+  const handleLogin = (user) => {
     dispatch(login(user))
-  })
+  }
+
+  // const handleLogin = useCallback((user) => {
+  //   dispatch(login(user))
+  // })
+
 
   return (
       <LoginContainer>
         <div style={{flexGrow: '1'}}></div>
-        <div style={{flexGrow: '1'}}><LoginForm onSubmit={handleLogin}/></div>
+        <div style={{flexGrow: '1'}}>
+          <LoginForm onSubmit={handleLogin} />
+        </div>
         <div style={{flexGrow: '1'}}></div>
       </LoginContainer>
   )
