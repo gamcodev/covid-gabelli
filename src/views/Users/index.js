@@ -6,7 +6,7 @@ import { fetchUsersByDate } from '../../redux/modules/Users/actions'
 import 'react-day-picker/lib/style.css'
 
 const UserPage = styled.div `
-  padding: 2rem;
+  padding: 2rem 1rem;
   text-align: center;
 `
 const UsersContainer = styled.div `
@@ -17,18 +17,21 @@ const UsersContainer = styled.div `
 const UserTableHeadings = styled.div `
   width: 100%;
   display: inline-grid;
-  grid-template-columns: repeat(8, 12.5%);
+  grid-template-columns: repeat(3, 10%) repeat(8, 8.75%);
   font-weight: bold;
   border-bottom: 2px solid #5a6572;
 `
+const Heading = styled.div `
+  word-wrap: break-word;
+`
 const UserRow = styled.div `
   display: inline-grid;
-  grid-template-columns: 12.5% 12.5% 12.5% 62.5%;
+  grid-template-columns: 10% 10% 10% 70%;
 `
 const ResponseCells = styled.div `
   width: 100%;
   display: inline-grid;
-  grid-template-columns: repeat(5, 20%);
+  grid-template-columns: repeat(8, 12.5%);
 `
 
 const Users = () => {
@@ -53,7 +56,10 @@ const Users = () => {
         <div>{r.cough === false ? 'NO' : r.cough === true ? 'YES' : null}</div>
         <div>{r.positive === false ? 'NO' : r.positive === true ? 'YES' : null}</div>
         <div>{r.quarantined === false ? 'NO' : r.quarantined === true ? 'YES' : null}</div>
-        <div>{r.attest === false ? 'NO' : r.attest === true ? 'YES' : null}</div>
+        <div>{r.travel === false ? 'NO' : r.travel === true ? 'YES' : null}</div>
+        <div>{r.gathering === false ? 'NO' : r.gathering === true ? 'YES' : null}</div>
+        <div>{r.public_transit === false ? 'NO' : r.public_transit === true ? 'YES' : null}</div>
+        <div>{r.status === 0 ? 'YES' : 'NO'}</div>
       </ResponseCells>
     )
   }
@@ -80,14 +86,17 @@ const Users = () => {
         { date !== '' ?
         <UsersContainer>
           <UserTableHeadings>
-            <div>First Name</div>
-            <div>Last Name</div>
-            <div>Department</div>
-            <div>Fever</div>
-            <div>Cough</div>
-            <div>Positive</div>
-            <div>Quarantined</div>
-            <div>Attest</div>
+            <Heading>First Name</Heading>
+            <Heading>Last Name</Heading>
+            <Heading>Department</Heading>
+            <Heading>Fever</Heading>
+            <Heading>Cough</Heading>
+            <Heading>Positive</Heading>
+            <Heading>Quarantined</Heading>
+            <Heading>Traveled</Heading>
+            <Heading>Gathering</Heading>
+            <Heading>Public Transit</Heading>
+            <Heading>Permitted?</Heading>
           </UserTableHeadings>
             {listUsers}
         </UsersContainer>
