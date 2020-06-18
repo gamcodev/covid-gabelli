@@ -22,7 +22,11 @@ const CertForm = (props) => {
     cough: '',
     positive: '',
     quarantined: '',
+    travel: '',
+    gathering: '',
+    public_transit: '',
     attest: '',
+    procedure: '',
   })
   console.log(responses)
 
@@ -33,17 +37,16 @@ const CertForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    responses.attest === 'true' ?
-      props.onSubmit(responses, props.currentUser.id)
-      :
-      alert("You must attest that your answers are true.")
+    props.onSubmit(responses, props.currentUser.id)
   }
+
 
   return (
     <div>
 
       <div>
         <Form>
+          {/* fever */}
           <span>Do you currently have a fever of 100.4 degrees F or greater?</span>
           <Radio
             label='Yes'
@@ -58,10 +61,10 @@ const CertForm = (props) => {
             onChange={ handleOnChange }
           />
           <hr />
-
+          {/* cough */}
           {  responses.fever ?
             <div>
-              <span >Do you have a cough or shortness of breath that began within the past 14 days?</span>
+              <span >Have you or anyone in your household had a fever, cough, shortness of breath, difficulty breathing, chills, muscle pain, sore throat, or new loss of taste or smell, that cannot be attributed to another health condition in the past 14 days?</span>
               <Radio
                 label='Yes'
                 name='cough'
@@ -79,9 +82,10 @@ const CertForm = (props) => {
               :
               null
           }
+          {/* positive */}
           { responses.cough && responses.fever ?
             <div>
-              <span>In the past 14 days, have you gotten a positive result from a COVID-19 test that tested saliva or used a nose or throat swab? (not a blood test)</span>
+              <span>In the past 14 days, have you or anyone in your household gotten a positive result from a COVID-19 test that tested saliva or used a nose or throat swab? (not a blood test)</span>
               <Radio
                 label='Yes'
                 name='positive'
@@ -99,9 +103,10 @@ const CertForm = (props) => {
               :
               null
             }
+            {/* quarantined */}
             { responses.cough && responses.fever && responses.positive ?
               <div>
-                <span>In the past 14 days were you notified by your medical provider or the NYC Test and Trace team to remain home because of COVID-19?</span>
+                <span>In the past 14 days were you or anyone in your household notified by your medical provider or local department of health to remain home because of COVID-19?</span>
                 <Radio
                   label='Yes'
                   name='quarantined'
@@ -119,13 +124,93 @@ const CertForm = (props) => {
               :
               null
             }
-          { responses.cough && responses.fever && responses.positive && responses.quarantined ?
+            {/* travel */}
+            { responses.cough && responses.fever && responses.positive && responses.quarantined ?
+              <div>
+                <span>Have you or someone you've been in contact with traveled domestically or internationally in the last 14 days?</span>
+                <Radio
+                  label='Yes'
+                  name='travel'
+                  value={true}
+                  onChange={ handleOnChange }
+                />
+                <Radio
+                  label='No'
+                  name='travel'
+                  value={false}
+                  onChange={ handleOnChange }
+                />
+                <hr />
+              </div>
+              :
+              null
+            }
+            {/* gathering */}
+            { responses.cough && responses.fever && responses.positive && responses.quarantined && responses.travel ?
+              <div>
+                <span>Have you or someone you've been in contact with attended a gathering where proper social distancing protocol was not followed in the past 14 days?</span>
+                <Radio
+                  label='Yes'
+                  name='gathering'
+                  value={true}
+                  onChange={ handleOnChange }
+                />
+                <Radio
+                  label='No'
+                  name='gathering'
+                  value={false}
+                  onChange={ handleOnChange }
+                />
+                <hr />
+              </div>
+              :
+              null
+            }
+            {/* public_trans */}
+            { responses.cough && responses.fever && responses.positive && responses.quarantined && responses.travel && responses.gathering ?
+              <div>
+                <span>Are you taking public transportation (ex. subway, bus, train) to commute to the office?</span>
+                <Radio
+                  label='Yes'
+                  name='public_transit'
+                  value={true}
+                  onChange={ handleOnChange }
+                />
+                <Radio
+                  label='No'
+                  name='public_transit'
+                  value={false}
+                  onChange={ handleOnChange }
+                />
+                <hr />
+              </div>
+              :
+              null
+            }
+          { responses.cough && responses.fever && responses.positive && responses.quarantined && responses.quarantined && responses.travel && responses.gathering ?
             <div>
+              <p>If you answer "yes" to any of the above questions, you should not come into the office and contact HR.</p>
+              <p>If you answer "no" to all of the above questions, you are approved to come into the office. Please acknowledge the following:</p>
               <AttestationDiv>
                 <Checkbox name="attest" value={true} onChange={ handleOnChange } />
-                <span>I, { props.currentUser.first_name } { props.currentUser.last_name }, attest that my responses are true and accurate to the best of my knowledge.</span>
+                <span>I, { props.currentUser.first_name } { props.currentUser.last_name }, certify I will follow my employer's return to work procedures.</span>
               </AttestationDiv>
-              <Button variant="raised"  onClick={handleSubmit}>Submit</Button>
+              { responses.attest === 'true' ?
+                <div>
+                  <AttestationDiv>
+                    <Checkbox name="procedure" value={true} onChange={ handleOnChange } />
+                    <span>I, { props.currentUser.first_name } { props.currentUser.last_name }, certify all answers are true and accurate to the best of my knowledge.</span>
+                  </AttestationDiv>
+
+                </div>
+                :
+                null
+              }
+              { responses.attest === 'true' && responses.procedure === 'true' ?
+                <Button variant="raised"  onClick={handleSubmit}>Submit</Button>
+                :
+                null
+              }
             </div>
             :
             null
