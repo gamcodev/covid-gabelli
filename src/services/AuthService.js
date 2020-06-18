@@ -31,6 +31,15 @@ const AuthService = {
       .then(response => response.json())
   },
 
+  logout(){
+    return fetch(`${API_URL}/users/logout`, {
+      method: 'DELETE',
+      headers: HEADERS(),
+      credentials: 'include',
+    })
+    .then(response => response.json())
+  }
+
 
 
 }

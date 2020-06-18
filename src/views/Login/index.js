@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { login } from '../../redux/modules/Auth/actions';
 import LoginForm from './LoginForm';
 import styled from 'styled-components'
@@ -14,18 +14,13 @@ const LoginContainer = styled.div `
 const Login = () => {
 
   const dispatch = useDispatch()
-  const isAuthenicating = useSelector(state => state.auth.isAuthenicating)
-  const isAuthenicated = useSelector(state => state.auth.isAuthenicated)
-  const currentUser = useSelector(state => state.auth.currentUser)
+  // const isAuthenicating = useSelector(state => state.auth.isAuthenicating)
+  // const isAuthenicated = useSelector(state => state.auth.isAuthenicated)
+  // const currentUser = useSelector(state => state.auth.currentUser)
 
   const handleLogin = (user) => {
     dispatch(login(user))
   }
-
-  // const handleLogin = useCallback((user) => {
-  //   dispatch(login(user))
-  // })
-
 
   return (
       <LoginContainer>

@@ -1,7 +1,26 @@
 // @flow
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, withRouter } from 'react-router-dom';
+import styled from 'styled-components'
+import Loader from 'react-loader-spinner'
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 
+const LoaderDiv = styled.div `
+  width: 100%;
+  text-align: center;
+`
+const Waiting = () => {
+  return (
+    <LoaderDiv>
+      <Loader
+        type="Plane"
+        color="#708090"
+        height={100}
+        width={100}
+      />
+    </LoaderDiv>
+  )
+}
 
 const MatchAuthenticated = (props) => {
   const Component = props.component
@@ -10,9 +29,15 @@ const MatchAuthenticated = (props) => {
       currentUser={props.currentUser}
       path={props.path}
       render={() => {
-        if (props.isAuthenticated) { return <Component currentUser={props.currentUser} />; }
-
-        if (!props.isAuthenticated) { return <Redirect to={{ pathname: '/login' }} />; }
+        if (props.isAuthenticating) {
+          return <Waiting />
+        }
+        if (props.isAuthenticated) {
+          return <Component currentUser={props.currentUser} />
+        }
+        if (!props.isAuthenticated) {
+          return <Redirect to={{ pathname: '/login' }} />
+        }
         return null;
       }}
     />
@@ -20,6 +45,6 @@ const MatchAuthenticated = (props) => {
   )
 }
 
-export default MatchAuthenticated;
+export default withRouter(MatchAuthenticated)
 
 // if (props.isAuthenticating) { return null; }

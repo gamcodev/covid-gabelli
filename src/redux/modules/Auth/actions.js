@@ -3,7 +3,6 @@ import AuthService from '../../../services/AuthService'
 import {
   makeFetchRequest,
   finishFetchRequest,
-  unsuccessfulFetchRequest
 } from '../../appTransactions'
 
 export const authenticationRequest = () => {
@@ -24,11 +23,6 @@ export const authenticationFailure = (errors) => {
     type: 'AUTHENTICATION_FAILURE',
     errors
    };
-}
-
-export const logout = () => {
-  localStorage.removeItem('token');
-  return { type: 'LOGOUT' };
 }
 
 export const replaceUser = user => {
@@ -58,9 +52,10 @@ export const login = (user) => {
           dispatch(authenticationFailure(body.errors))
           dispatch(finishFetchRequest())
         } else {
-          localStorage.setItem('user', JSON.stringify(body))
+          localStorage.setItem('user', body.user)
+          // localStorage.setItem('user', JSON.stringify(body))
           localStorage.setItem('token', body.token);
-          dispatch(setCurrentUser(body))
+          dispatch(setCurrentUser(body.user))
           dispatch(finishFetchRequest())
         }
       })
@@ -76,7 +71,7 @@ export const authenticate = () => {
     AuthService.authenticate()
     .then(body => {
       localStorage.setItem('token', body.token);
-      dispatch(setCurrentUser(body))
+      dispatch(setCurrentUser(body.user))
     })
     .catch(err => {
       console.log(err)
@@ -84,6 +79,13 @@ export const authenticate = () => {
       window.location = '/login';
     });
   }
+}
+
+export const logout = () => {
+  AuthService.logout()
+  localStorage.removeItem('user')
+  localStorage.removeItem('token')
+  return { type: 'LOGOUT'}
 }
 
 export const signup = (user) => {

@@ -1,5 +1,6 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components'
 import { createCert } from '../../redux/modules/Cert/actions'
 import { logout } from '../../redux/modules/Auth/actions'
@@ -20,16 +21,25 @@ const CertFormFields = styled.div `
 
 const Certification = (props) => {
   const dispatch = useDispatch()
-  const cert = useSelector(state => state.cert.cert || [])
-  const userId = props.currentUser.id
+  // const cert = useSelector(state => state.cert.cert || [])
+  // const userId = props.currentUser.id
 
   const onSubmit = ( responses, userId ) => {
     dispatch(createCert(responses, userId))
-    showAlert()
+    showResults(responses)
   }
 
-  const showAlert = () => {
-    alert("thank you for your responses")
+  const showResults = (responses) => {
+    responses.cough === 'true' || responses.fever === 'true' || responses.positive === 'true' || responses.quarantined === 'true' ?
+    props.history.push({
+      pathname: '/thankyou',
+      result: 'no'
+    })
+    :
+    props.history.push({
+      pathname: '/thankyou',
+      result: 'yes'
+    })
     dispatch(logout())
   }
 
@@ -45,4 +55,4 @@ const Certification = (props) => {
   )
 }
 
-export default Certification
+export default withRouter(Certification)
