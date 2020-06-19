@@ -320,7 +320,7 @@ const SurveyForm = (props) => {
         <Checkbox name="deep_cleaning" label='Regular deep cleaning of the office' value={true} onChange={ handleCheck } />
         <Checkbox name="intraday_clean" label='Intraday cleaning of common areas including bathrooms and kitchens' value={true} onChange={ handleCheck } />
         <Checkbox name="no_public_transit" label='Requiring teammates not take public transportation to work' value={true} onChange={ handleCheck } />
-        <Input style={{width: '50%'}} name="other" label='Other:  provide text' onChange={ handleCheck } />
+        <Input style={{width: '50%'}} name="other" label='Other:  provide text' onChange={ handleOnChange } />
       </CheckboxContainer>
 
       <span>3.	Check any of the following that applies as a concern for returning to work:</span>
