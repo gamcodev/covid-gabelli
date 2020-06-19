@@ -42,14 +42,14 @@ export const fetchSurveys = () => {
 }
 
 export const createSurvey = (data, userId) => {
-  debugger
   return dispatch => {
     SurveyResponseService.createSurvey(data, userId)
     .then(survey => {
-      if(survey.errors) {
-        dispatch(unsuccessfulSurveyCreate(survey.errors))
-      } else {
-        dispatch(successfulSurveyFetch(survey))
+      if (survey) {
+        console.log(survey)
+      //   dispatch(unsuccessfulSurveyCreate(survey.errors))
+      // } else {
+      //   dispatch(successfulSurveyFetch(survey))
       }
     })
   }
