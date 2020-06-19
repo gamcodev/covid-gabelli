@@ -325,7 +325,7 @@ const SurveyForm = (props) => {
 
       <span>3.	Check any of the following that applies as a concern for returning to work:</span>
       <CheckboxContainer>
-        <Checkbox name="high_risk" label='I, or someone in my household, am/is considered to be high risk per the CDC due to health reasons (such as an underlying condition) or age (65+)a)	I, or someone in my household, am/is considered to be high risk per the CDC due to health reasons (such as an underlying condition) or age (65+)'  value={true} onChange={ handleCheck } />
+        <Checkbox name="high_risk" label='I, or someone in my household, am/is considered to be high risk per the CDC due to health reasons (such as an underlying condition) or age (65+)'  value={true} onChange={ handleCheck } />
         <Checkbox name="dependent_coverage" label='Care issues.  I do not have reliable care coverage for my dependents or older relatives that I take care of.' value={true} onChange={ handleCheck } />
         <Checkbox name="public_trans_only" label='Transportation issues.  I can only take public transportation to work' value={true} onChange={ handleCheck } />
         <Checkbox name="other_reason" label='Other' onChange={ handleCheck }/>
