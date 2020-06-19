@@ -16,7 +16,7 @@ const HeaderBar = styled.div `
 
 const Logo = styled.div `
   img {
-    width: 70%;
+    width: 200px;
 
   }
 `
@@ -35,7 +35,7 @@ const Header = (props) => {
       <Logo>
         <img  src={"https://s3.us-east-2.amazonaws.com/gab-images/gamco_inv_hor_reverse_rgb-01.svg"} alt="gabelli-logo"></img>
       </Logo>
-      <div><h2>COVID-19 Reopening Health Screen</h2></div>
+      <div><h2>COVID-19 Reopening Survey</h2></div>
       { props.isAuthenticated && props.currentUser.role === 'admin' ?
         <Logout>
           <NavLink to='/teammates'><span>View Teammates</span></NavLink>

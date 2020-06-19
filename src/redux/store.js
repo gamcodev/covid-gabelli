@@ -6,12 +6,14 @@ import { reducer as form } from 'redux-form'
 import auth from './modules/Auth/reducer'
 import cert from './modules/Cert/reducer'
 import users from './modules/Users/reducer'
+import survey from './modules/Survey/reducer'
 
 const reducers = combineReducers({
   form,
   auth,
   cert,
-  users
+  users,
+  survey
 })
 
 export default createStore(

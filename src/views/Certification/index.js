@@ -10,7 +10,7 @@ import CertForm from './CertForm'
 const CertFormContainer = styled.div `
   width: 100%;
   display: inline-grid;
-  grid-template-columns: 20% 60% 20%;
+  grid-template-columns: 10% 80% 10%;
 `
 
 const CertFormFields = styled.div `
