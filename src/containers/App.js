@@ -8,7 +8,9 @@ import Header from '../components/Header'
 import Login from '../views/Login'
 import Users from '../views/Users'
 import Certification from '../views/Certification'
+import Survey from '../views/Survey'
 import ThankYou from '../views/ThankYou'
+import SurveyComplete from '../views/SurveyComplete'
 import './App.css';
 
 type Props = {
@@ -40,10 +42,13 @@ class App extends Component {
       <Router>
         <Route path='/' render={ () => <Header isAuthenticated={isAuthenticated} logout={logout} currentUser={currentUser} /> }/>
         <Switch>
-          <MatchAuthenticated path='/' exact component={ Certification } {...authProps} />
+          <MatchAuthenticated path='/' exact component={ Survey } {...authProps} />
+          <MatchAuthenticated path='/certification' exact component={ Certification } {...authProps} />
+
           <MatchAuthenticated path='/teammates' exact component={ Users } {...authProps} />
           <RedirectUnauthenticated path='/login' exact component={ Login } { ...authProps } />
           <Route path='/thankyou' exact component={ ThankYou } />
+          <Route path='/survey_complete' exact component={ SurveyComplete } />
         </Switch>
       </Router>
     )

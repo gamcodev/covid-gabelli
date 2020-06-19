@@ -62,7 +62,6 @@ const CertForm = (props) => {
           />
           <hr />
           {/* cough */}
-          {  responses.fever ?
             <div>
               <span >Have you or anyone in your household had a fever, cough, shortness of breath, difficulty breathing, chills, muscle pain, sore throat, or new loss of taste or smell, that cannot be attributed to another health condition in the past 14 days?</span>
               <Radio
@@ -79,11 +78,7 @@ const CertForm = (props) => {
               />
               <hr />
             </div>
-              :
-              null
-          }
           {/* positive */}
-          { responses.cough && responses.fever ?
             <div>
               <span>In the past 14 days, have you or anyone in your household gotten a positive result from a COVID-19 test that tested saliva or used a nose or throat swab? (not a blood test)</span>
               <Radio
@@ -100,11 +95,7 @@ const CertForm = (props) => {
               />
               <hr />
               </div>
-              :
-              null
-            }
             {/* quarantined */}
-            { responses.cough && responses.fever && responses.positive ?
               <div>
                 <span>In the past 14 days were you or anyone in your household notified by your medical provider or local department of health to remain home because of COVID-19?</span>
                 <Radio
@@ -121,11 +112,7 @@ const CertForm = (props) => {
                 />
                 <hr />
               </div>
-              :
-              null
-            }
             {/* travel */}
-            { responses.cough && responses.fever && responses.positive && responses.quarantined ?
               <div>
                 <span>Have you or someone you've been in contact with traveled domestically or internationally in the last 14 days?</span>
                 <Radio
@@ -142,11 +129,7 @@ const CertForm = (props) => {
                 />
                 <hr />
               </div>
-              :
-              null
-            }
             {/* gathering */}
-            { responses.cough && responses.fever && responses.positive && responses.quarantined && responses.travel ?
               <div>
                 <span>Have you or someone you've been in contact with attended a gathering where proper social distancing protocol was not followed in the past 14 days?</span>
                 <Radio
@@ -163,11 +146,7 @@ const CertForm = (props) => {
                 />
                 <hr />
               </div>
-              :
-              null
-            }
             {/* public_trans */}
-            { responses.cough && responses.fever && responses.positive && responses.quarantined && responses.travel && responses.gathering ?
               <div>
                 <span>Are you taking public transportation (ex. subway, bus, train) to commute to the office?</span>
                 <Radio
@@ -184,9 +163,6 @@ const CertForm = (props) => {
                 />
                 <hr />
               </div>
-              :
-              null
-            }
           { responses.cough && responses.fever && responses.positive && responses.quarantined && responses.quarantined && responses.travel && responses.gathering ?
             <div>
               <p>If you answer "yes" to any of the above questions, you should not come into the office and contact HR.</p>
