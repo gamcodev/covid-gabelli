@@ -7,6 +7,8 @@ import RedirectUnauthenticated from '../components/RedirectUnauthenticated';
 import Header from '../components/Header'
 import Login from '../views/Login'
 import Users from '../views/Users'
+import Results from '../views/Survey/Results'
+import AdminHome from '../views/AdminHome'
 import Certification from '../views/Certification'
 import Survey from '../views/Survey'
 import ThankYou from '../views/ThankYou'
@@ -42,10 +44,17 @@ class App extends Component {
       <Router>
         <Route path='/' render={ () => <Header isAuthenticated={isAuthenticated} logout={logout} currentUser={currentUser} /> }/>
         <Switch>
-          <MatchAuthenticated path='/' exact component={ Survey } {...authProps} />
-          <MatchAuthenticated path='/certification' exact component={ Certification } {...authProps} />
+          { currentUser?.role === 'admin' ?
+            <MatchAuthenticated path='/' exact component={ AdminHome } {...authProps} />
+            :
+            <MatchAuthenticated path='/' exact component={ Survey } {...authProps} />
 
+          }
+          <MatchAuthenticated path='/certification' exact component={ Certification } {...authProps} />
+          <MatchAuthenticated path='/admin_home' exact component={ AdminHome } {...authProps} />
+          <MatchAuthenticated path='/survey' exact component={ Survey } {...authProps} />
           <MatchAuthenticated path='/teammates' exact component={ Users } {...authProps} />
+          <MatchAuthenticated path='/results' exact component={ Results } {...authProps} />
           <RedirectUnauthenticated path='/login' exact component={ Login } { ...authProps } />
           <Route path='/thankyou' exact component={ ThankYou } />
           <Route path='/survey_complete' exact component={ SurveyComplete } />

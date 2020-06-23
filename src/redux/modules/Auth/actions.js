@@ -53,7 +53,6 @@ export const login = (user) => {
           dispatch(finishFetchRequest())
         } else {
           localStorage.setItem('user', body.user)
-          // localStorage.setItem('user', JSON.stringify(body))
           localStorage.setItem('token', body.token);
           dispatch(setCurrentUser(body.user))
           dispatch(finishFetchRequest())
