@@ -1,9 +1,6 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
-import { fetchSurveys } from '../../redux/modules/Survey/actions'
-import { useDispatch, useSelector } from 'react-redux'
-
 
 const AdminScreen = styled.div `
   width: 100%;
@@ -26,15 +23,24 @@ const NavButton = styled.button `
 const AdminHome = (props) => {
 
   return (
-    <AdminScreen>
-      <div></div>
-      <AdminNav>
-        <NavLink to='/results'><NavButton>Survey Results</NavButton></NavLink>
-        <NavLink to='/teammates'><NavButton>Certifications</NavButton></NavLink>
-      </AdminNav>
-      <div></div>
-
-    </AdminScreen>
+    <div>
+      <AdminScreen>
+        <div></div>
+          <AdminNav>
+            <NavLink to='/results'><NavButton>Survey Results</NavButton></NavLink>
+            <NavLink to='/teammates'><NavButton>Certifications</NavButton></NavLink>
+          </AdminNav>
+        <div></div>
+      </AdminScreen>
+      <AdminScreen>
+        <div></div>
+        <AdminNav>
+          <NavLink to='/survey'><NavButton>Take Survey</NavButton></NavLink>
+          <NavLink to='/certification'><NavButton>Attest</NavButton></NavLink>
+        </AdminNav>
+        <div></div>
+      </AdminScreen>
+    </div>
   )
 }
 

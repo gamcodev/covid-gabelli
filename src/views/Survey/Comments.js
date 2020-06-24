@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import styled from 'styled-components'
 import { fetchSurveys } from '../../redux/modules/Survey/actions'
-import ResultsTable from './ResultsTable'
+import { useDispatch, useSelector } from 'react-redux'
 import { Waiting } from '../../components/MatchAuthenticated'
 
-const Results = (props) => {
 
+const CommentsPage = styled.div `
+  padding: 2rem;
+`
+const Comments = (props) => {
   const dispatch = useDispatch()
   const surveys = useSelector(state => state.survey.surveys || [])
   const makingRequestToAPI = useSelector(state => state.appTransactions.makingRequestToAPI)
@@ -15,16 +17,21 @@ const Results = (props) => {
     dispatch(fetchSurveys())
   }, [])
 
+  const comments = surveys?.filter(s => s.comments !== "").map(c => (
+    <p><strong>{c.user.first_name} {c.user.last_name}:</strong> {c.comments}</p>
+  ))
 
   return (
     <div>
       { makingRequestToAPI ?
         <Waiting />
         :
-        <ResultsTable surveys={surveys} />
+        <CommentsPage>
+          {comments}
+        </CommentsPage>
       }
     </div>
   )
 }
 
-export default withRouter(Results)
+export default Comments

@@ -1,4 +1,9 @@
 import SurveyResponseService from '../../../services/SurveyResponseService'
+import {
+  makeFetchRequest,
+  finishFetchRequest,
+  unsuccessfulFetchRequest
+} from '../../appTransactions';
 
 const successfulSurveysFetch = surveys => {
   return {
@@ -6,36 +11,24 @@ const successfulSurveysFetch = surveys => {
     surveys
   }
 }
-const successfulSurveyFetch = survey => {
-  return {
-    type: "SUCCESSFUL_SURVEY_FETCH",
-    survey
-  }
-}
 
-const unsuccessfulSurveyCreate = (errors) => {
-  return {
-    type: "UNSUCCESSFUL_SURVEY_CREATE",
-    errors
-  }
-}
-
-const unsuccessfulSurveysFetch = (errors) => {
-  return {
-    type: "UNSUCCESSFUL_SURVEYS_FETCH",
-    errors
-  }
-}
-
+// const unsuccessfulSurveyCreate = (errors) => {
+//   return {
+//     type: "UNSUCCESSFUL_SURVEY_CREATE",
+//     errors
+//   }
+// }
 
 export const fetchSurveys = () => {
   return dispatch => {
+    dispatch(makeFetchRequest())
     SurveyResponseService.fetchSurveys()
     .then(surveys => {
       if(surveys.errors) {
-        dispatch(unsuccessfulSurveysFetch(surveys.errors))
+        dispatch(unsuccessfulFetchRequest(surveys.errors))
       } else {
         dispatch(successfulSurveysFetch(surveys))
+        dispatch(finishFetchRequest())
       }
     })
   }

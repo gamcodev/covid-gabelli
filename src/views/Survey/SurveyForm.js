@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 import Form from 'muicss/lib/react/form';
 import Radio from 'muicss/lib/react/radio';
 import Button from 'muicss/lib/react/button';
@@ -62,48 +61,6 @@ const SurveyForm = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     props.onSubmit(responses, props.currentUser.id)
-  }
-
-  const RadioOptions = (props) => {
-    return (
-    <RadioContainer>
-      <Radio
-        style={{margin: '0'}}
-        label='1'
-        name={props.inputName}
-        value={0}
-        onChange={ props.handleOnChange }
-      />
-      <Radio
-        style={{margin: '0'}}
-        label='2'
-        name={props.inputName}
-        value={1}
-        onChange={ props.handleOnChange }
-      />
-      <Radio
-        style={{margin: '0'}}
-        label='3'
-        name={props.inputName}
-        value={2}
-        onChange={ props.handleOnChange }
-      />
-      <Radio
-        style={{margin: '0'}}
-        label='4'
-        name={props.inputName}
-        value={3}
-        onChange={ props.handleOnChange }
-      />
-      <Radio
-        style={{margin: '0'}}
-        label='5'
-        name={props.inputName}
-        value={4}
-        onChange={ props.handleOnChange }
-      />
-    </RadioContainer>
-  )
   }
 
   return (
@@ -344,3 +301,46 @@ const SurveyForm = (props) => {
 }
 
 export default SurveyForm
+
+
+// const RadioOptions = (props) => {
+//   return (
+//   <RadioContainer>
+//     <Radio
+//       style={{margin: '0'}}
+//       label='1'
+//       name={props.inputName}
+//       value={0}
+//       onChange={ props.handleOnChange }
+//     />
+//     <Radio
+//       style={{margin: '0'}}
+//       label='2'
+//       name={props.inputName}
+//       value={1}
+//       onChange={ props.handleOnChange }
+//     />
+//     <Radio
+//       style={{margin: '0'}}
+//       label='3'
+//       name={props.inputName}
+//       value={2}
+//       onChange={ props.handleOnChange }
+//     />
+//     <Radio
+//       style={{margin: '0'}}
+//       label='4'
+//       name={props.inputName}
+//       value={3}
+//       onChange={ props.handleOnChange }
+//     />
+//     <Radio
+//       style={{margin: '0'}}
+//       label='5'
+//       name={props.inputName}
+//       value={4}
+//       onChange={ props.handleOnChange }
+//     />
+//   </RadioContainer>
+// )
+// }

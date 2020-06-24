@@ -38,7 +38,15 @@ const Header = (props) => {
       <div><h2>COVID-19 Reopening Survey</h2></div>
       { props.isAuthenticated && props.currentUser.role === 'admin' ?
         <Logout>
-          <NavLink to='/teammates'><span>View Teammates</span></NavLink>
+          <NavLink to='/'><span>Admin Home</span></NavLink>
+        </Logout>
+        : window.location.pathname === '/' && props.isAuthenticated && props.currentUser.role !== 'admin' && props.currentUser.surveys === false ?
+        <Logout>
+          <NavLink to='/survey'><span>Take Survey</span></NavLink>
+        </Logout>
+        : window.location.pathname === '/survey' && props.isAuthenticated && props.currentUser.role !== 'admin' ?
+        <Logout>
+          <NavLink to='/'><span>Attestation</span></NavLink>
         </Logout>
         :
         <div></div>

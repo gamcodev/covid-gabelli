@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
+import { withRouter } from 'react-router-dom'
 import { AgGridReact } from 'ag-grid-react'
 import 'ag-grid-community/dist/styles/ag-grid.css'
 import 'ag-grid-community/dist/styles/ag-theme-balham.css'
-import { GoCheck } from 'react-icons/go'
-import { GiCancel } from 'react-icons/gi'
+// import { GoCheck } from 'react-icons/go'
+// import { GiCancel } from 'react-icons/gi'
 import Aggregate from './Aggregate'
 
 const ResultsTable = (props) => {
@@ -61,18 +61,20 @@ const ResultsTable = (props) => {
   //   }
   //   return element
   // }
-  const tF = (r) => {
-    let icon = null
-    switch(r) {
-      case true:
-        icon = `${<GoCheck />}`
-      case false:
-        icon = `${<GiCancel />}`
-      default:
-        icon = `${<GoCheck />}`
-    }
-    return icon
-  }
+  // const tF = (r) => {
+  //   let icon = null
+  //   switch(r) {
+  //     case true:
+  //       icon = `${<GoCheck />}`
+  //       break
+  //     case false:
+  //       icon = `${<GiCancel />}`
+  //       break
+  //     default:
+  //       icon = `${<GoCheck />}`
+  //   }
+  //   return icon
+  // }
 
 
   const gridOptions = {
@@ -87,7 +89,7 @@ const ResultsTable = (props) => {
       { headerName: 'DEPARTMENT', field: 'department', width: 80, resizable: true},
       { headerName: 'NEEDS MET', field: 'needs_met', width: 80, resizable: true},
       { headerName: 'EFFECTIVE WFH', field: 'effectiveness', width: 80, resizable: true},
-      { headerName: 'TEAM CHECKINS', field: 'checkins', resizable: true, width: 80, resizable: true  },
+      { headerName: 'TEAM CHECKINS', field: 'checkins', width: 80, resizable: true  },
       { headerName: 'TEAM CONNECTED', field: 'team_connected', width: 80, resizable: true },
       { headerName: 'OFFICE COMFORT', field: 'office_comfort', width: 80, resizable: true},
       { headerName: 'LIMITING', field: 'limiting', width: 80, resizable: true },
@@ -143,4 +145,4 @@ const ResultsTable = (props) => {
 
 }
 
-export default ResultsTable
+export default withRouter(ResultsTable)

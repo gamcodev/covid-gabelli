@@ -8,6 +8,7 @@ import Header from '../components/Header'
 import Login from '../views/Login'
 import Users from '../views/Users'
 import Results from '../views/Survey/Results'
+import Comments from '../views/Survey/Comments'
 import AdminHome from '../views/AdminHome'
 import Certification from '../views/Certification'
 import Survey from '../views/Survey'
@@ -47,7 +48,7 @@ class App extends Component {
           { currentUser?.role === 'admin' ?
             <MatchAuthenticated path='/' exact component={ AdminHome } {...authProps} />
             :
-            <MatchAuthenticated path='/' exact component={ Survey } {...authProps} />
+            <MatchAuthenticated path='/' exact component={ Certification } {...authProps} />
 
           }
           <MatchAuthenticated path='/certification' exact component={ Certification } {...authProps} />
@@ -55,6 +56,7 @@ class App extends Component {
           <MatchAuthenticated path='/survey' exact component={ Survey } {...authProps} />
           <MatchAuthenticated path='/teammates' exact component={ Users } {...authProps} />
           <MatchAuthenticated path='/results' exact component={ Results } {...authProps} />
+          <MatchAuthenticated path='/results/comments' exact component={ Comments } {...authProps} />
           <RedirectUnauthenticated path='/login' exact component={ Login } { ...authProps } />
           <Route path='/thankyou' exact component={ ThankYou } />
           <Route path='/survey_complete' exact component={ SurveyComplete } />

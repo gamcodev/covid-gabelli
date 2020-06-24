@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import { withRouter, NavLink } from 'react-router-dom'
+import { MdArrowForward } from 'react-icons/md'
 
 const AggregateContainer = styled.div `
   padding: 0 1rem 1rem 1rem;
@@ -7,12 +9,20 @@ const AggregateContainer = styled.div `
 `
 const AggregateRow = styled.div `
   display: inline-grid;
+  grid-template-columns: repeat(6, 16.6%);
+  width: 100%
+`
+const ComfortRow = styled.div `
+  display: inline-grid;
   grid-template-columns: repeat(5, 20%);
   width: 100%
 `
-const Concerns = styled.div `
-padding-top: 2rem;
-
+const CommentsButton = styled.button `
+  width: 30%;
+  height: 40px;
+  line-height: 40px;
+  cursor: pointer;
+  background: #6dcff6;
 `
 const Aggregate = (props) => {
   const s = props.surveys
@@ -43,7 +53,7 @@ const Aggregate = (props) => {
 
   const sOc = s.filter(s => s.office_comfort === 4).length
   const oC = s.filter(s => s.office_comfort === 3).length
-  const nOc = s.filter(s => s.office_comfort === 2 || s. office_comfort === null).length
+  const nOc = s.filter(s => s.office_comfort === 2 || s.office_comfort === null).length
   const noOc = s.filter(s => s.office_comfort === 1).length
   const sNoc = s.filter(s => s.office_comfort === 0).length
 
@@ -61,30 +71,66 @@ const Aggregate = (props) => {
   const other = s.filter(s => s.other_reason === true).length
   const none = s.filter(s => s.no_concerns === true).length
 
-  const concerns = s.filter(s => s.comments !== "").map(s => (
-    <p><strong>{s.user.first_name} {s.user.last_name}</strong>: {s.comments}</p>))
 
+
+  // const viewComments = () => {
+  //   const comments = props.surveys.filter(s => s.comments !== "").map(s => s.comments)
+  //   props.history.push({
+  //     pathname: '/results/comments',
+  //     comments: comments
+  //   })
+  // }
   return (
     <AggregateContainer>
       <h2>Aggregate Survey Results</h2>
-      <h4>Needs Met:</h4>
       <AggregateRow>
-        <div>Strongly Agree: {sNm}</div><div>Agree: {nM} </div><div>Neutral: {nNm}</div><div>Disagree: {noNm} </div><div>Strongly Disagree: {sNnm}</div>
+        <div></div>
+        <div><strong>Strongly Agree</strong></div>
+        <div><strong>Agree</strong></div>
+        <div><strong>Neutral</strong></div>
+        <div><strong>Disagree</strong></div>
+        <div><strong>Strongly Disagree</strong></div>
       </AggregateRow>
-      <h4>Effective WFH:</h4>
       <AggregateRow>
-        <div>Strongly Agree: {sE}</div><div>Agree: {e} </div><div>Neutral: {nE}</div><div>Disagree: {noE} </div><div>Strongly Disagree:{sNE} </div>
+        <div><strong>Needs Met:</strong></div>
+        <div>{sNm}</div>
+        <div>{nM}</div>
+        <div>{nNm}</div>
+        <div>{noNm}</div>
+        <div>{sNnm}</div>
       </AggregateRow>
-      <h4>Regular Checkins:</h4>
-      <AggregateRow><div>Strongly Agree: {sCi}</div><div>Agree: {cI} </div><div>Neutral: {nCi}</div><div>Disagree: {noCi} </div><div>Strongly Disagree: {sNci}</div></AggregateRow>
-      <h4>Feel Connected To Team:</h4>
+
       <AggregateRow>
-        <div>Strongly Agree: {sTc}</div><div>Agree: {tC} </div><div>Neutral: {nTc}</div><div>Disagree: {noTc} </div><div>Strongly Disagree: {sNtc}</div>
+        <div><strong>Effective WFH:</strong></div>
+        <div>{sE}</div>
+        <div>{e}</div>
+        <div>{nE}</div>
+        <div>{noE}</div>
+        <div>{sNE}</div>
       </AggregateRow>
-      <h4>Comfortable Returning To Office:</h4>
+
       <AggregateRow>
-        <div>Strongly Agree: {sOc}</div><div>Agree: {oC} </div><div>Neutral: {nOc}</div><div>Disagree: {noOc} </div><div>Strongly Disagree: {sNoc}</div>
+        <div><strong>Regular Checkins:</strong></div>
+        <div>{sCi}</div>
+        <div>{cI}</div>
+        <div>{nCi}</div>
+        <div>{noCi}</div>
+        <div>{sNci}</div>
       </AggregateRow>
+
+      <AggregateRow>
+        <div><strong>Feel Connected: </strong></div>
+        <div>{sTc}</div>
+        <div>{tC}</div>
+        <div>{nTc}</div>
+        <div>{noTc}</div>
+        <div>{sNtc}</div>
+      </AggregateRow>
+      <hr/>
+      <h4><strong>Comfort Level About Returning To The Office:</strong></h4>
+      <ComfortRow>
+        <div>Ready To Come Back: {sOc}</div><div>Comfortable: {oC} </div><div>Neutral: {nOc}</div><div>Uncomfortable: {noOc} </div><div>Very Uncomfortable: {sNoc}</div>
+      </ComfortRow>
       <hr />
       <h4>What would increase comfort: </h4>
       <AggregateRow>
@@ -96,12 +142,15 @@ const Aggregate = (props) => {
         <div>HighRisk: {high}</div><div>Dependent coverage: {dep} </div><div>Public trans only: {pTonly}</div><div>Other: {other}</div><div>No Concerns: {none} </div>
       </AggregateRow>
       <hr />
-      <Concerns>
-        {concerns}
-      </Concerns>
+      <NavLink to='/results/comments' >
+        <CommentsButton >View Individual Comments <MdArrowForward style={{paddingLeft: '10px', paddingTop: '10px'}} /></CommentsButton>
+      </NavLink>
 
     </AggregateContainer>
   )
 }
 
-export default Aggregate
+
+
+
+export default withRouter(Aggregate)

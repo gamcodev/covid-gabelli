@@ -1,5 +1,5 @@
-// @flow
 import React from 'react';
+import { useSelector } from 'react-redux'
 import { Route, Redirect, withRouter } from 'react-router-dom';
 import styled from 'styled-components'
 import Loader from 'react-loader-spinner'
@@ -8,12 +8,13 @@ import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 const LoaderDiv = styled.div `
   width: 100%;
   text-align: center;
+  margin-top: 1rem;
 `
-const Waiting = () => {
+export const Waiting = () => {
   return (
     <LoaderDiv>
       <Loader
-        type="Plane"
+        type="ThreeDots"
         color="#708090"
         height={100}
         width={100}
@@ -24,6 +25,7 @@ const Waiting = () => {
 
 const MatchAuthenticated = (props) => {
   const Component = props.component
+
   return(
     <Route
       currentUser={props.currentUser}
