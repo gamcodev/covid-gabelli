@@ -27,7 +27,7 @@ const AdminHome = (props) => {
       <AdminScreen>
         <div></div>
           <AdminNav>
-            <NavLink to='/results'><NavButton>Survey Results</NavButton></NavLink>
+            <NavLink to='/survey/results'><NavButton>Survey Results</NavButton></NavLink>
             <NavLink to='/teammates'><NavButton>Certifications</NavButton></NavLink>
           </AdminNav>
         <div></div>

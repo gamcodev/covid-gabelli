@@ -142,7 +142,7 @@ const Aggregate = (props) => {
         <div>HighRisk: {high}</div><div>Dependent coverage: {dep} </div><div>Public trans only: {pTonly}</div><div>Other: {other}</div><div>No Concerns: {none} </div>
       </AggregateRow>
       <hr />
-      <NavLink to='/results/comments' >
+      <NavLink to='/survey/results/comments' >
         <CommentsButton >View Individual Comments <MdArrowForward style={{paddingLeft: '10px', paddingTop: '10px'}} /></CommentsButton>
       </NavLink>
 

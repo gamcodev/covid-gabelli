@@ -30,9 +30,7 @@ const Logout = styled.div `
 `
 
 const Header = (props) => {
-  window.location.pathname === '/' ?
   console.log(window.location.pathname)
-  :
   console.log(window.location)
   return (
     <HeaderBar>
@@ -42,12 +40,11 @@ const Header = (props) => {
       { props.isAuthenticated && props.currentUser.role === 'admin' ?
       <div><NavLink to='/'><h2>COVID-19 Admin Home</h2></NavLink></div>
       :
-      <div><h2>COVID-19 Attestation</h2></div>
+      <div><h2>COVID-19 Reopening Survey</h2></div>
       }
-
-      { props.isAuthenticated && props.currentUser.role !== 'admin' && props.currentUser.surveys === false ?
+      { props.isAuthenticated && props.currentUser.role !== 'admin' ?
         <Logout>
-          <NavLink to='/survey'><span>Take Survey</span></NavLink>
+          <NavLink to='/'><span>Attestation</span></NavLink>
         </Logout>
         :
         <div></div>
