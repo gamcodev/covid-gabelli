@@ -1,4 +1,9 @@
 import UserService from '../../../services/UserService'
+import {
+  makeFetchRequest,
+  finishFetchRequest,
+  unsuccessfulFetchRequest
+} from '../../appTransactions';
 
 export const successfulUsersFetch = users => {
   return {
@@ -17,9 +22,16 @@ export const fetchUsers = () => {
 
 export const fetchUsersByDate = (date) => {
   return dispatch => {
+    dispatch(makeFetchRequest())
     UserService.fetchUsersByDate(date)
     .then(users => {
-      dispatch(successfulUsersFetch(users))
+      console.log(users)
+      if(users.errors) {
+        dispatch(unsuccessfulFetchRequest(users.errors))
+      } else {
+        dispatch(finishFetchRequest())
+        dispatch(successfulUsersFetch(users))
+      }
     })
   }
 }

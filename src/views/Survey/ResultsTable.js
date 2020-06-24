@@ -111,6 +111,7 @@ const ResultsTable = (props) => {
       effectiveness: q1Key(s.effectiveness),
       checkins: q1Key(s.checkins),
       team_connected: q1Key(s.team_connected),
+      limiting: q1Key(s.limiting),
       office_comfort: q2Key(s.office_comfort),
       purpose: s.purpose,
       temperature: s.temperature,
