@@ -30,6 +30,8 @@ const Logout = styled.div `
 `
 
 const Header = (props) => {
+  console.log(window.location.pathname)
+  console.log(window.location)
   return (
     <HeaderBar>
       <Logo>
