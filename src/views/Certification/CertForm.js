@@ -28,7 +28,6 @@ const CertForm = (props) => {
     attest: '',
     procedure: '',
   })
-  console.log(responses)
 
   const handleOnChange = e => {
     const { name, value } = e.target
@@ -114,7 +113,7 @@ const CertForm = (props) => {
               </div>
             {/* travel */}
               <div>
-                <span>Have you or someone you've been in contact with traveled domestically or internationally in the last 14 days?</span>
+                <span>In the past 14 days, have you or anyone in your household, traveled internationally or from any of the states considered a COVID-19 "Hot Spot" as outlined bythe NYS Governor (currently Alabama, Arizona, Arkansas, Florida, North Carolina, South Carolina, Washington, Utah, Texas)?</span>
                 <Radio
                   label='Yes'
                   name='travel'

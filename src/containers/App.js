@@ -5,7 +5,7 @@ import { authenticate, authenticationFailure, logout } from '../redux/modules/Au
 import MatchAuthenticated from '../components/MatchAuthenticated';
 import RedirectUnauthenticated from '../components/RedirectUnauthenticated';
 import Header from '../components/Header'
-import SurveyHeader from '../components/SurveyHeader'
+// import SurveyHeader from '../components/SurveyHeader'
 import Login from '../views/Login'
 import Users from '../views/Users'
 import Results from '../views/Survey/Results'
@@ -44,11 +44,7 @@ class App extends Component {
 
     return (
       <Router>
-        <Route exact path='/' render={ () => <Header isAuthenticated={isAuthenticated} logout={logout} currentUser={currentUser} /> }/>
-        <Route exact path='/login' render={ () => <Header isAuthenticated={isAuthenticated} logout={logout} currentUser={currentUser} /> }/>
-        <Route exact path='/teammates' render={ () => <Header isAuthenticated={isAuthenticated} logout={logout} currentUser={currentUser} /> }/>
-
-        <Route path='/survey' render={ () => <SurveyHeader isAuthenticated={isAuthenticated} logout={logout} currentUser={currentUser} /> }/>
+        <Route path='/' render={ () => <Header isAuthenticated={isAuthenticated} logout={logout} currentUser={currentUser} /> }/>
         <Switch>
           { currentUser?.role === 'admin' ?
             <MatchAuthenticated path='/' exact component={ AdminHome } {...authProps} />
