@@ -12,12 +12,23 @@ const HeaderBar = styled.div `
   display: inline-grid;
   grid-template-columns: 25% 50% 12.5% 12.5%;
   border-bottom: 2px solid #6dcff6;
+  @media (max-width: 680px) {
+    grid-template-columns: 15% 55% 15% 15%;
+    h2 {
+      font-size: 18px;
+    }
+  }
 `
 
 const Logo = styled.div `
   img {
     width: 200px;
-
+  }
+  @media (max-width: 680px) {
+    img {
+      width: 100px;
+      margin-top: 1rem;
+    }
   }
 `
 const Logout = styled.div `

@@ -18,7 +18,11 @@ const CertFormContainer = styled.div `
 const CertFormFields = styled.div `
   background: #f7f7f7;
   clear: both;
-  padding: 5%;
+  padding: 1rem 2rem;
+`
+const ReminderDiv = styled.div `
+  text-align: center;
+  margin-bottom: 2rem;
 `
 
 const Certification = (props) => {
@@ -51,6 +55,7 @@ const Certification = (props) => {
     <CertFormContainer>
       <div></div>
       <CertFormFields>
+        <ReminderDiv><h2><strong>REMINDER: </strong>The questionnaire MUST be completed prior to leaving your home every day you plan on coming to the office.</h2></ReminderDiv>
         <CertForm onSubmit={onSubmit} currentUser={props.currentUser}/>
       </CertFormFields>
       <div></div>
