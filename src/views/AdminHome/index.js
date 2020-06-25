@@ -7,6 +7,9 @@ const AdminScreen = styled.div `
   display: inline-grid;
   grid-template-columns: 25% 50% 25%;
   clear: both;
+  @media (max-width: 680px)  {
+    grid-template-columns: 10% 80% 10%;
+  }
 `
 const AdminNav = styled.div `
   display: inline-grid;
@@ -23,7 +26,7 @@ const NavButton = styled.button `
 const AdminHome = (props) => {
 
   return (
-    <div>
+    <div style={{ marginTop: '1rem'}}>
       <AdminScreen>
         <div></div>
           <AdminNav>

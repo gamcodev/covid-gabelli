@@ -8,14 +8,13 @@ const HeaderBar = styled.div `
   height: 75px;
   text-align: center;
   color: #fff;
-  margin-bottom: 1rem;
   display: inline-grid;
   grid-template-columns: 25% 50% 12.5% 12.5%;
   border-bottom: 2px solid #6dcff6;
   @media (max-width: 680px) {
-    grid-template-columns: 15% 55% 15% 15%;
+    grid-template-columns: 20% 60% 0% 20%;
     h2 {
-      font-size: 18px;
+      font-size: 16px;
     }
   }
 `
@@ -39,6 +38,18 @@ const Logout = styled.div `
     color: #fff;
   }
 `
+const SuLink = styled.div `
+  @media (max-width: 680px)  {
+    visibility: hidden;
+  }
+  span {
+    cursor: pointer;
+    line-height: 75px;
+    align-self: right;
+    color: #fff;
+  }
+`
+
 
 const Header = (props) => {
   return (
@@ -57,13 +68,13 @@ const Header = (props) => {
       }
 
       { window.location.pathname === '/' && props.isAuthenticated && props.currentUser.role !== 'admin' && props.currentUser.surveys === false ?
-        <Logout>
+        <SuLink>
           <NavLink to='/survey'><span>Take Survey</span></NavLink>
-        </Logout>
+        </SuLink>
         : window.location.pathname === '/survey' && props.isAuthenticated && props.currentUser.role !== 'admin' ?
-        <Logout>
+        <SuLink>
           <NavLink to='/'><span>Attestation</span></NavLink>
-        </Logout>
+        </SuLink>
         :
         <div></div>
       }

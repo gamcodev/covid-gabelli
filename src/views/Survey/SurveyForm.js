@@ -46,7 +46,6 @@ const SurveyForm = (props) => {
     no_concerns: '',
     comments: '',
 })
-  console.log(responses)
 
   const handleOnChange = e => {
     const { name, value } = e.target
