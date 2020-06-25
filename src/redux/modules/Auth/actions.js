@@ -47,7 +47,6 @@ export const login = (user) => {
     dispatch(authenticationRequest());
     AuthService.login(user)
       .then(body => {
-        console.log(body)
         if (body.errors) {
           dispatch(authenticationFailure(body.errors))
           dispatch(finishFetchRequest())

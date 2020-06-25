@@ -28,7 +28,6 @@ const ReminderDiv = styled.div `
 const Certification = (props) => {
   const dispatch = useDispatch()
   const cert = useSelector(state => state.cert.cert || [])
-  console.log(cert)
 
   const onSubmit = ( responses, userId ) => {
     dispatch(createCert(responses, userId))

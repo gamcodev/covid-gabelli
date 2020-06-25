@@ -57,14 +57,14 @@ const CertsTable = (props) => {
       first_name: s.first_name,
       last_name: s.last_name,
       department: s.department,
-      fever: qKey(s.responses.fever),
-      cough: qKey(s.responses.cough),
-      positive: qKey(s.responses.positive),
-      quarantined: qKey(s.responses.quarantined),
-      travel: qKey(s.responses.travel),
-      gathering: qKey(s.responses.gathering),
-      public_transit: qKey(s.responses.public_transit),
-      permitted: permitKey(s.responses.status),
+      fever: qKey(s.responses?.fever),
+      cough: qKey(s.responses?.cough),
+      positive: qKey(s.responses?.positive),
+      quarantined: qKey(s.responses?.quarantined),
+      travel: qKey(s.responses?.travel),
+      gathering: qKey(s.responses?.gathering),
+      public_transit: qKey(s.responses?.public_transit),
+      permitted: permitKey(s.responses?.status),
     }))
 
   return (
