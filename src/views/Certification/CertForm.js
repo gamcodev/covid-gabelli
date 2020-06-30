@@ -113,7 +113,7 @@ const CertForm = (props) => {
               </div>
             {/* travel */}
               <div>
-                <span>In the past 14 days, have you or anyone in your household, traveled internationally or from any of the states considered a COVID-19 "Hot Spot" as outlined bythe NYS Governor (currently Alabama, Arizona, Arkansas, Florida, North Carolina, South Carolina, Washington, Utah, Texas)?</span>
+                <span>In the past 14 days, have you or anyone in your household, traveled internationally or from any of the states considered a COVID-19 "Hot Spot" as outlined bythe NYS Governor (currently Alabama, Arizona, Arkansas, California, Florida, Georgia, Iowa, Idaho, Louisiana, Mississippi, North Carolina, Nevada, South Carolina, Tennessee, Texas, Utah)?</span>
                 <Radio
                   label='Yes'
                   name='travel'
