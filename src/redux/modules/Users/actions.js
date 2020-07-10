@@ -2,7 +2,9 @@ import UserService from '../../../services/UserService'
 import {
   makeFetchRequest,
   finishFetchRequest,
-  unsuccessfulFetchRequest
+  unsuccessfulFetchRequest,
+  successfulExport,
+  successfullyExporting
 } from '../../appTransactions';
 
 export const successfulUsersFetch = users => {
@@ -11,6 +13,7 @@ export const successfulUsersFetch = users => {
     users
   }
 }
+
 export const fetchUsers = () => {
   return dispatch => {
     UserService.fetchUsers()
@@ -25,12 +28,25 @@ export const fetchUsersByDate = (date) => {
     dispatch(makeFetchRequest())
     UserService.fetchUsersByDate(date)
     .then(users => {
-      console.log(users)
       if(users.errors) {
         dispatch(unsuccessfulFetchRequest(users.errors))
       } else {
         dispatch(finishFetchRequest())
         dispatch(successfulUsersFetch(users))
+      }
+    })
+  }
+}
+
+export const exportUserCerts = (date, user_email) => {
+  return dispatch => {
+    dispatch(successfullyExporting())
+    UserService.exportUserCerts(date, user_email)
+    .then(users => {
+      if(users.errors) {
+        dispatch(unsuccessfulFetchRequest(users.errors))
+      } else {
+        dispatch(successfulExport())
       }
     })
   }

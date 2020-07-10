@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import DayPickerInput from 'react-day-picker/DayPickerInput'
-import { fetchUsersByDate } from '../../redux/modules/Users/actions'
+import Button from 'muicss/lib/react/button';
+import { fetchUsersByDate, exportUserCerts } from '../../redux/modules/Users/actions'
 import 'react-day-picker/lib/style.css'
 import { Waiting } from '../../components/MatchAuthenticated'
 import CertsTable from './CertsTable'
@@ -17,10 +19,23 @@ const UsersContainer = styled.div `
   flex-direction: column;
   width: 100%;
 `
-const Users = () => {
+const DateAndExport = styled.div `
+  width: 100%;
+  display: inline-grid;
+  grid-template-columns: repeat(3, 33%);
+  justify-content: space-around;
+`
+const Export = styled.div `
+  display: flex;
+  flex-direction: column;
+`
+const Users = (props) => {
   const dispatch = useDispatch()
   const users = useSelector(state => state.users.users || [])
-  const makingRequestToAPI = useSelector(state => state.appTransactions.makingRequestToAPI)
+  const { makingRequestToAPI, exporting, exported } = useSelector(state => state.appTransactions)
+  // const exporting = useSelector(state => state.appTransactions.exporting)
+  console.log(exporting)
+
   const [date, setDate] = useState('')
 
   const getUserList = (date) => {
@@ -32,11 +47,38 @@ const Users = () => {
     getUserList(date)
   }
 
+  const handleExport = () => {
+    dispatch(exportUserCerts(date, props.currentUser.email))
+    // alert("Check your email for the report.")
+  }
+  useEffect(() => {
+    if (exported === true) {
+      alert("Check your email for the report.")
+    }
+  }, [exported])
+
 
     return (
       <UserPage>
+        <DateAndExport>
+          <div></div>
+          <DayPickerInput onDayChange={day => getUsers(day)} />
+          <Export>
+          {
+            date !== '' && !makingRequestToAPI ?
+              <Button variant="raised"  onClick={handleExport}>Export to Excel</Button>
+              :
+              null
+          }
+          {
+            exporting ?
+            <span>Exporting...</span>
+            :
+            null
+          }
+          </Export>
 
-        <DayPickerInput onDayChange={day => getUsers(day)} /><br />
+        </DateAndExport>
         { date !== '' ?
         <UsersContainer>
           { makingRequestToAPI ?
@@ -52,7 +94,7 @@ const Users = () => {
     )
 }
 
-export default Users
+export default withRouter(Users)
 
 // const UserTableHeadings = styled.div `
 //   width: 100%;

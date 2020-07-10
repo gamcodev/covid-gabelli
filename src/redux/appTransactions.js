@@ -16,11 +16,23 @@ export const unsuccessfulFetchRequest = () => {
    }
 }
 
+export const successfulExport = () => {
+  return {
+    type: 'SUCCESSFUL_EXPORT'
+  }
+}
+export const successfullyExporting = () => {
+  return {
+    type: 'SUCCESSFULLY_EXPORTING'
+  }
+}
 
 
 export default (state = {
   makingRequestToAPI: false,
   lastRequestFailed: false,
+  exporting: false,
+  exported: false,
 }, action) => {
   switch (action.type) {
 
@@ -40,7 +52,21 @@ export default (state = {
       return {
         ...state,
         makingRequestToAPI: false,
-        lastRequestFailed: true,
+        lastRequestFailed: true
+      }
+
+    case "SUCCESSFULLY_EXPORTING":
+      return {
+        ...state,
+        exported: false,
+        exporting: true
+      }
+
+    case "SUCCESSFUL_EXPORT":
+      return {
+        ...state,
+        exported: true,
+        exporting: false
       }
 
     default:

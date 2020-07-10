@@ -15,7 +15,7 @@ const CertsTable = (props) => {
       { headerName: 'FIRST NAME', field: 'first_name', width: 95, resizable: true},
       { headerName: 'LAST NAME', field: 'last_name', width: 100, resizable: true},
       { headerName: 'DEPARTMENT', field: 'department', width: 150, resizable: true},
-      { headerName: 'FEVERresponses.', field: 'fever', width: 100, resizable: true},
+      { headerName: 'FEVER', field: 'fever', width: 100, resizable: true},
       { headerName: 'COUGH', field: 'cough', width: 100, resizable: true},
       { headerName: 'POSITIVE', field: 'positive', width: 100, resizable: true  },
       { headerName: 'QUARANTINED', field: 'quarantined', width: 100, resizable: true },
