@@ -18,16 +18,17 @@ const AttestationDiv = styled.div `
 const CertForm = (props) => {
 
   const [responses, setResponses] = useState({
-    fever: '',
-    cough: '',
-    positive: '',
-    quarantined: '',
-    travel: '',
-    gathering: '',
-    public_transit: '',
-    attest: '',
-    procedure: '',
+    fever: null,
+    cough: null,
+    positive: null,
+    quarantined: null,
+    travel: null,
+    gathering: null,
+    public_transit: null,
+    attest: null,
+    procedure: null,
   })
+  console.log(responses)
 
   const handleOnChange = e => {
     const { name, value } = e.target
@@ -50,13 +51,13 @@ const CertForm = (props) => {
           <Radio
             label='Yes'
             name='fever'
-            value={true}
+            value={1}
             onChange={ handleOnChange }
           />
           <Radio
             label='No'
             name='fever'
-            value={false}
+            value={0}
             onChange={ handleOnChange }
           />
           <hr />
@@ -66,13 +67,13 @@ const CertForm = (props) => {
               <Radio
                 label='Yes'
                 name='cough'
-                value={true}
+                value={1}
                 onChange={ handleOnChange }
               />
               <Radio
                 label='No'
                 name='cough'
-                value={false}
+                value={0}
                 onChange={ handleOnChange }
               />
               <hr />
@@ -83,13 +84,13 @@ const CertForm = (props) => {
               <Radio
                 label='Yes'
                 name='positive'
-                value={true}
+                value={1}
                 onChange={ handleOnChange }
               />
               <Radio
                 label='No'
                 name='positive'
-                value={false}
+                value={0}
                 onChange={ handleOnChange }
               />
               <hr />
@@ -100,30 +101,36 @@ const CertForm = (props) => {
                 <Radio
                   label='Yes'
                   name='quarantined'
-                  value={true}
+                  value={1}
                   onChange={ handleOnChange }
                 />
                 <Radio
                   label='No'
                   name='quarantined'
-                  value={false}
+                  value={0}
                   onChange={ handleOnChange }
                 />
                 <hr />
               </div>
             {/* travel */}
               <div>
-                <span>In the past 14 days, have you or anyone in your household, traveled internationally or from any of the states considered a COVID-19 "Hot Spot" as outlined bythe NYS Governor (currently Alabama, Arizona, Arkansas, California, Delaware, Florida, Georgia, Iowa, Idaho, Kansas, Louisiana, Mississippi, North Carolina, Nevada, Oklahoma, South Carolina, Tennessee, Texas, Utah)?</span>
+                <span>In the past 14 days, have you or anyone in your household, traveled internationally or from any of the states considered a COVID-19 "Hot Spot" as outlined by the Governor of the state your office resides in?</span><br />
+                <br />
+                <span>For the Rye, NY office, visit <a href="https://coronavirus.health.ny.gov/covid-19-travel-advisory" alt='NY state website' target="_blank" rel="noreferrer noopener">NY State COVID-19 Travel Advisory</a> to see the current list.</span><br />
+                <br />
+                <span>For the Greenwich, CT office, visit <a href="https://portal.ct.gov/Coronavirus/Covid-19-Knowledge-Base/Travel-In-or-Out-of-CT" alt='CT state website' target="_blank" rel="noreferrer noopener">CT COVID-19 Travel Advisory</a> to see the current list.</span>
+                <br />
+                <br />
                 <Radio
                   label='Yes'
                   name='travel'
-                  value={true}
+                  value={1}
                   onChange={ handleOnChange }
                 />
                 <Radio
                   label='No'
                   name='travel'
-                  value={false}
+                  value={0}
                   onChange={ handleOnChange }
                 />
                 <hr />
@@ -134,13 +141,13 @@ const CertForm = (props) => {
                 <Radio
                   label='Yes'
                   name='gathering'
-                  value={true}
+                  value={1}
                   onChange={ handleOnChange }
                 />
                 <Radio
                   label='No'
                   name='gathering'
-                  value={false}
+                  value={0}
                   onChange={ handleOnChange }
                 />
                 <hr />
@@ -151,29 +158,29 @@ const CertForm = (props) => {
                 <Radio
                   label='Yes'
                   name='public_transit'
-                  value={true}
+                  value={1}
                   onChange={ handleOnChange }
                 />
                 <Radio
                   label='No'
                   name='public_transit'
-                  value={false}
+                  value={0}
                   onChange={ handleOnChange }
                 />
                 <hr />
               </div>
-          { responses.cough && responses.fever && responses.positive && responses.quarantined && responses.quarantined && responses.travel && responses.gathering ?
+          { responses.cough && responses.fever && responses.positive && responses.quarantined && responses.quarantined && responses.travel && responses.gathering && responses.public_transit ?
             <div>
               <p>If you answer "yes" to any of the above questions, you should not come into the office and contact HR.</p>
               <p>If you answer "no" to all of the above questions, you are approved to come into the office. Please acknowledge the following:</p>
               <AttestationDiv>
-                <Checkbox name="attest" value={true} onChange={ handleOnChange } />
+                <Checkbox name="attest" value={1} onChange={ handleOnChange } />
                 <span>I, { props.currentUser.first_name } { props.currentUser.last_name }, certify I will follow my employer's return to work procedures.</span>
               </AttestationDiv>
-              { responses.attest === 'true' ?
+              { responses.attest ?
                 <div>
                   <AttestationDiv>
-                    <Checkbox name="procedure" value={true} onChange={ handleOnChange } />
+                    <Checkbox name="procedure" value={1} onChange={ handleOnChange } />
                     <span>I, { props.currentUser.first_name } { props.currentUser.last_name }, certify all answers are true and accurate to the best of my knowledge.</span>
                   </AttestationDiv>
 
@@ -181,7 +188,7 @@ const CertForm = (props) => {
                 :
                 null
               }
-              { responses.attest === 'true' && responses.procedure === 'true' ?
+              { responses.attest && responses.procedure ?
                 <Button variant="raised"  onClick={handleSubmit}>Submit</Button>
                 :
                 null

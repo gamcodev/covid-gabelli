@@ -56,7 +56,7 @@ const Certification = (props) => {
   }
 
   const showResults = (r) => {
-    r.cough === 'true' || r.fever === 'true' || r.positive === 'true' || r.quarantined === 'true' || r.travel === 'true' || r.gathering=== 'true' || r.public_transit === 'true' ?
+    r.cough === '1' || r.fever === '1' || r.positive === '1' || r.quarantined === '1' || r.travel === '1' || r.gathering=== '1' || r.public_transit === '1' ?
     props.history.push({
       pathname: '/thankyou',
       result: 'no',
