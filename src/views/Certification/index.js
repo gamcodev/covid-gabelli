@@ -8,45 +8,8 @@ import { createCert } from '../../redux/modules/Cert/actions'
 import { logout } from '../../redux/modules/Auth/actions'
 import CertForm from './CertForm'
 
-
-
-const CertFormContainer = styled.div `
-  width: 100%;
-  display: inline-grid;
-  grid-template-columns: 10% 80% 10%;
-  @media (max-width: 680px)  {
-    grid-template-columns: 2% 96% 2%;
-  }
-`
-
-const CertFormFields = styled.div `
-  background: #f7f7f7;
-  clear: both;
-  padding: 1rem 2rem;
-`
-const ReminderDiv = styled.div `
-  text-align: center;
-  margin-bottom: 2rem;
-`
-const SLink = styled.div `
-  span {
-    cursor: pointer;
-    align-self: center;
-  }
-
-`
-const ConditionalSurveyLink = styled.div `
-  text-align: center;
-  @media (min-width: 680px)  {
-    visibility: hidden;
-  }
-  @media (max-width: 680px)  {
-    visibility: visible;
-  }
-
-`
-
 const Certification = (props) => {
+
   const dispatch = useDispatch()
   const cert = useSelector(state => state.cert.cert || [])
 
@@ -108,3 +71,39 @@ export default withRouter(Certification)
 //     <div></div>
 //   }
 // </ConditionalSurveyLink>
+
+const CertFormContainer = styled.div `
+  width: 100%;
+  display: inline-grid;
+  grid-template-columns: 10% 80% 10%;
+  @media (max-width: 680px)  {
+    grid-template-columns: 2% 96% 2%;
+  }
+`
+
+const CertFormFields = styled.div `
+  background: #f7f7f7;
+  clear: both;
+  padding: 1rem 2rem;
+`
+const ReminderDiv = styled.div `
+  text-align: center;
+  margin-bottom: 2rem;
+`
+const SLink = styled.div `
+  span {
+    cursor: pointer;
+    align-self: center;
+  }
+
+`
+const ConditionalSurveyLink = styled.div `
+  text-align: center;
+  @media (min-width: 680px)  {
+    visibility: hidden;
+  }
+  @media (max-width: 680px)  {
+    visibility: visible;
+  }
+
+`

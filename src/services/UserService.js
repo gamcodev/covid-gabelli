@@ -9,6 +9,16 @@ const UserService = {
     .then(response => response.json())
   },
 
+  createUser(user) {
+    return fetch(`${API_URL}/users`, {
+      method: 'POST',
+      headers: HEADERS(),
+      body: JSON.stringify(user)
+    })
+    .then(response => response.json())
+
+  },
+
   fetchUsersByDate(date) {
     return fetch(`${API_URL}/users/date`, {
       method: 'POST',

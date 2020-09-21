@@ -1,17 +1,92 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
-import DayPickerInput from 'react-day-picker/DayPickerInput'
 import Button from 'muicss/lib/react/button';
-import { fetchUsersByDate, exportUserCerts } from '../../redux/modules/Users/actions'
-import 'react-day-picker/lib/style.css'
 import { Waiting } from '../../components/MatchAuthenticated'
-import CertsTable from './CertsTable'
+import { fetchUsers, createUser  } from '../../redux/modules/Users/actions'
+import ViewCerts from './ViewCerts'
+import ManageUsers from './ManageUsers'
+import UserForm from './UserForm'
+
+export const UserContext = createContext()
+
+const Users = (props) => {
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchUsers())
+  }, [])
+  const users = useSelector(state => state.users.users || [])
+  const { makingRequestToAPI } = useSelector(state => state.appTransactions)
+
+  const [showUsers, setShowUsers] = useState(false)
+  const [showUserForm, setShowUserForm] = useState(false)
+  const [showCerts, setShowCerts] = useState(false)
+
+  const viewUsers = () => {
+    setShowUsers(true)
+    setShowUserForm(false)
+    setShowCerts(false)
+  }
+  const addUser = () => {
+    setShowUsers(false)
+    setShowUserForm(true)
+    setShowCerts(false)
+  }
+  const viewCerts = () => {
+    setShowUsers(false)
+    setShowUserForm(false)
+    setShowCerts(true)
+  }
+  const addNewUser = (user) => {
+    dispatch(createUser(user))
+  }
+
+    return (
+      <UserContext.Provider value={users}>
+        <UserPage>
+          <ManagementNav>
+            <Button variant='raised' onClick={ viewUsers }>View All Users</Button>
+            <Button variant='raised' onClick={ addUser }>Add User</Button>
+            <Button variant='raised' onClick={ viewCerts }>View Certifications</Button>
+          </ManagementNav>
+          { showCerts ?
+            <UsersContainer>
+                <ViewCerts />
+            </UsersContainer>
+          : showUsers ?
+            <UsersContainer>
+              { makingRequestToAPI ?
+                <Waiting />
+                :
+                <ManageUsers />
+              }
+            </UsersContainer>
+          : showUserForm ?
+            <FormContainer>
+              <UserForm addNewUser={ addNewUser }/>
+            </FormContainer>
+          :
+            null
+          }
+        </UserPage>
+      </UserContext.Provider>
+    )
+}
+
+export default withRouter(Users)
 
 const UserPage = styled.div `
-  padding: 2rem 1rem;
+  padding: 1rem;
   text-align: center;
+`
+const ManagementNav = styled.div `
+  width: 100%;
+  Button {
+    background-color: #f3f3f3;
+    width: 200px;
+  }
 `
 const UsersContainer = styled.div `
   margin-top: 1rem;
@@ -19,105 +94,7 @@ const UsersContainer = styled.div `
   flex-direction: column;
   width: 100%;
 `
-const DateAndExport = styled.div `
-  width: 100%;
-  display: inline-grid;
-  grid-template-columns: repeat(3, 33%);
+const FormContainer = styled.div `
+  display: flex;
   justify-content: space-around;
 `
-const Export = styled.div `
-  display: flex;
-  flex-direction: column;
-`
-const Users = (props) => {
-  const dispatch = useDispatch()
-  const users = useSelector(state => state.users.users || [])
-  const { makingRequestToAPI, exporting, exported } = useSelector(state => state.appTransactions)
-  // const exporting = useSelector(state => state.appTransactions.exporting)
-  console.log(exporting)
-
-  const [date, setDate] = useState('')
-
-  const getUserList = (date) => {
-    setDate(date)
-  }
-
-  const getUsers = (date) => {
-    dispatch(fetchUsersByDate(date))
-    getUserList(date)
-  }
-
-  const handleExport = () => {
-    dispatch(exportUserCerts(date, props.currentUser.email))
-    // alert("Check your email for the report.")
-  }
-  useEffect(() => {
-    if (exported === true) {
-      alert("Check your email for the report.")
-    }
-  }, [exported])
-
-
-    return (
-      <UserPage>
-        <DateAndExport>
-          <div></div>
-          <DayPickerInput onDayChange={day => getUsers(day)} />
-          <Export>
-          {
-            date !== '' && !makingRequestToAPI ?
-              <Button variant="raised"  onClick={handleExport}>Export to Excel</Button>
-              :
-              null
-          }
-          {
-            exporting ?
-            <span>Exporting...</span>
-            :
-            null
-          }
-          </Export>
-
-        </DateAndExport>
-        { date !== '' ?
-        <UsersContainer>
-          { makingRequestToAPI ?
-            <Waiting />
-            :
-            <CertsTable users={users} />
-          }
-        </UsersContainer>
-        :
-          <span>Please choose a date</span>
-        }
-      </UserPage>
-    )
-}
-
-export default withRouter(Users)
-
-// const UserTableHeadings = styled.div `
-//   width: 100%;
-//   display: inline-grid;
-//   grid-template-columns: 8% 8% 14% repeat(8, 8.75%);
-//   font-weight: bold;
-//   border-bottom: 2px solid #5a6572;
-// `
-// const Heading = styled.div `
-//   word-wrap: break-word;
-// `
-// const UserRow = styled.div `
-//   display: inline-grid;
-//   grid-template-columns: 8% 8% 14% 70%;
-// `
-// const ResponseCells = styled.div `
-//   width: 100%;
-//   display: inline-grid;
-//   grid-template-columns: repeat(8, 12.5%);
-// `
-
-// <div>{u.responses.fever}</div>
-// <div>{u.responses.fever}</div>
-// <div>{u.responses.fever}</div>
-// <div>{u.responses.fever}</div>
-// <div>{u.responses.created_at}</div>

@@ -1,5 +1,7 @@
 import React from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
+import Button from 'muicss/lib/react/button';
+
 import styled from 'styled-components'
 
 const AdminScreen = styled.div `
@@ -15,14 +17,12 @@ const AdminNav = styled.div `
   display: inline-grid;
   grid-template-columns: 50% 50%;
   height: 60px;
+  text-align: center;
+  Button {
+    background-color: #f3f3f3;
+    width: 95%;
+  }
 `
-const NavButton = styled.button `
-  width: 95%;
-  height: 95%;
-  cursor: pointer;
-  margin: 5%;
-`
-
 const AdminHome = (props) => {
   console.log(props.currentUser)
 
@@ -31,16 +31,27 @@ const AdminHome = (props) => {
       <AdminScreen>
         <div></div>
           <AdminNav>
-            <NavLink to='/survey/results'><NavButton>Survey Results</NavButton></NavLink>
-            <NavLink to='/teammates'><NavButton>Certifications</NavButton></NavLink>
+            <NavLink to='/survey/results'>
+              <Button variant='raised'>Survey Results</Button>
+            </NavLink>
+            <NavLink to='/user_management'>
+              <Button variant='raised'>Manage Users</Button>
+            </NavLink>
+            {/*<NavLink to='/teammates'>
+              <NavButton>Certifications</NavButton>
+            </NavLink>*/}
           </AdminNav>
         <div></div>
       </AdminScreen>
       <AdminScreen>
         <div></div>
         <AdminNav>
-          <NavLink to='/survey'><NavButton>Take Survey</NavButton></NavLink>
-          <NavLink to='/certification'><NavButton>Attest</NavButton></NavLink>
+          <NavLink to='/survey'>
+            <Button variant='raised'>Take Survey</Button>
+          </NavLink>
+          <NavLink to='/certification'>
+            <Button variant='raised'>Attest</Button>
+          </NavLink>
         </AdminNav>
         <div></div>
       </AdminScreen>

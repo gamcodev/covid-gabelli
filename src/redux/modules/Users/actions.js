@@ -14,13 +14,49 @@ export const successfulUsersFetch = users => {
   }
 }
 
+export const successfulUserCertsFetch = users => {
+  return {
+    type: 'SUCCESSFUL_USER CERTS_FETCH',
+    users
+  }
+}
+
+export const successfulUserCreate = user => {
+  return {
+    type: 'SUCCESSFUL_USER_CREATE',
+    user
+  }
+}
+
 export const fetchUsers = () => {
   return dispatch => {
+    dispatch(makeFetchRequest())
     UserService.fetchUsers()
     .then(users => {
-      dispatch(successfulUsersFetch(users))
+      if(users.errors) {
+        dispatch(unsuccessfulFetchRequest(users.errors))
+      } else {
+        dispatch(finishFetchRequest())
+        dispatch(successfulUsersFetch(users))
+      }
     })
   }
+}
+
+export const createUser = user => {
+  return dispatch => {
+    dispatch(makeFetchRequest())
+    UserService.createUser(user)
+    .then(user => {
+      if(user.errors) {
+        dispatch(unsuccessfulFetchRequest(user.errors))
+      } else {
+        dispatch(finishFetchRequest())
+        dispatch(successfulUserCreate(user))
+      }
+    })
+  }
+
 }
 
 export const fetchUsersByDate = (date) => {
@@ -32,7 +68,7 @@ export const fetchUsersByDate = (date) => {
         dispatch(unsuccessfulFetchRequest(users.errors))
       } else {
         dispatch(finishFetchRequest())
-        dispatch(successfulUsersFetch(users))
+        dispatch(successfulUserCertsFetch(users))
       }
     })
   }
