@@ -30,7 +30,7 @@ const UserForm = (props) => {
 
   useEffect(() => {
     if (newUser.id) {
-      alert("User successfully created")
+      alert("User successfully created and credentials sent")
     } else if (status.errors) {
       alert(status.errors)
     }
