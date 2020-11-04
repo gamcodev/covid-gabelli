@@ -46,7 +46,7 @@ const CertForm = (props) => {
 
       <div>
         <Form>
-          {/* fever */}
+          {/* Q1 fever */}
           <span>Do you currently have a fever of 100.4 degrees F or greater?</span>
           <Radio
             label='Yes'
@@ -61,9 +61,9 @@ const CertForm = (props) => {
             onChange={ handleOnChange }
           />
           <hr />
-          {/* cough */}
+          {/* Q2 cough */}
             <div>
-              <span >Have you or anyone in your household had a fever, cough, shortness of breath, difficulty breathing, chills, muscle pain, sore throat, or new loss of taste or smell, that cannot be attributed to another health condition in the past 14 days?</span>
+              <span >In the past 14 days, have you or anyone in your household had any COVID-related <a href="https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/symptoms.html" alt='CDC website' target="_blank" rel="noreferrer noopener">symptoms</a>, including fever, cough, shortness of breath, difficulty breathing, chills, muscle pain, sore throat, or new loss of taste or smell, that cannot be attributed to another health condition, in the past 14 days?</span>
               <Radio
                 label='Yes'
                 name='cough'
@@ -78,7 +78,7 @@ const CertForm = (props) => {
               />
               <hr />
             </div>
-          {/* positive */}
+          {/* Q3 positive */}
             <div>
               <span>In the past 14 days, have you or anyone in your household gotten a positive result from a COVID-19 test that tested saliva or used a nose or throat swab? (not a blood test)</span>
               <Radio
@@ -95,9 +95,9 @@ const CertForm = (props) => {
               />
               <hr />
               </div>
-            {/* quarantined */}
+            {/* Q4 quarantined */}
               <div>
-                <span>In the past 14 days were you or anyone in your household notified by your medical provider or local department of health to remain home because of COVID-19?</span>
+                <span>In the past 14 days were you or anyone in your household notified by a medical provider, local department of health, employer, school, or other entity to quarantine because of COVID-19 or potential exposure to COVID-19?</span>
                 <Radio
                   label='Yes'
                   name='quarantined'
