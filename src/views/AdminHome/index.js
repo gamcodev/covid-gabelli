@@ -24,7 +24,6 @@ const AdminNav = styled.div `
   }
 `
 const AdminHome = (props) => {
-  console.log(props.currentUser)
 
   return (
     <div style={{ marginTop: '1rem'}}>
