@@ -114,11 +114,11 @@ const CertForm = (props) => {
               </div>
             {/* travel */}
               <div>
-                <span>In the past 14 days, have you or anyone in your household, traveled internationally or from any of the states considered a COVID-19 "Hot Spot" as outlined by the Governor of the state your office resides in?</span><br />
+                <span>In the past 14 days, have you or anyone in your household, traveled internationally and/or been required to quarantine per state requirements?</span><br />
                 <br />
                 <span>For the Rye, NY office, visit <a href="https://coronavirus.health.ny.gov/covid-19-travel-advisory" alt='NY state website' target="_blank" rel="noreferrer noopener">NY State COVID-19 Travel Advisory</a> to see the current list.</span><br />
                 <br />
-                <span>For the Greenwich, CT office, visit <a href="https://portal.ct.gov/Coronavirus/Covid-19-Knowledge-Base/Travel-In-or-Out-of-CT" alt='CT state website' target="_blank" rel="noreferrer noopener">CT COVID-19 Travel Advisory</a> to see the current list.</span>
+                <span>For the Greenwich, CT office, visit <a href="https://portal.ct.gov/Coronavirus/Travel" alt='CT state website' target="_blank" rel="noreferrer noopener">CT COVID-19 Travel Advisory</a> to see the current list.</span>
                 <br />
                 <br />
                 <Radio
