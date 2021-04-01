@@ -1,4 +1,5 @@
-export const API_URL = process.env.REACT_APP_API_URL
+import { server } from './config'
+export const API_URL = server
 
 export const HEADERS = () => {
   const token = localStorage.getItem('token')

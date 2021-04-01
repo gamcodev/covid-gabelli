@@ -13,7 +13,7 @@ const AdminScreen = styled.div `
     grid-template-columns: 10% 80% 10%;
   }
 `
-const AdminNav = styled.div `
+const AdminNavRow = styled.div `
   display: inline-grid;
   grid-template-columns: 50% 50%;
   height: 60px;
@@ -22,6 +22,10 @@ const AdminNav = styled.div `
     background-color: #f3f3f3;
     width: 95%;
   }
+  @media (max-width: 680px)  {
+    height: 120px;
+    grid-template-columns: 100%;
+  }
 `
 const AdminHome = (props) => {
 
@@ -29,7 +33,7 @@ const AdminHome = (props) => {
     <div style={{ marginTop: '1rem'}}>
       <AdminScreen>
         <div></div>
-          <AdminNav>
+          <AdminNavRow>
             <NavLink to='/survey/results'>
               <Button variant='raised'>Survey Results</Button>
             </NavLink>
@@ -39,19 +43,19 @@ const AdminHome = (props) => {
             {/*<NavLink to='/teammates'>
               <NavButton>Certifications</NavButton>
             </NavLink>*/}
-          </AdminNav>
+          </AdminNavRow>
         <div></div>
       </AdminScreen>
       <AdminScreen>
         <div></div>
-        <AdminNav>
+        <AdminNavRow>
           <NavLink to='/survey'>
             <Button variant='raised'>Take Survey</Button>
           </NavLink>
           <NavLink to='/certification'>
             <Button variant='raised'>Attest</Button>
           </NavLink>
-        </AdminNav>
+        </AdminNavRow>
         <div></div>
       </AdminScreen>
     </div>
