@@ -27,6 +27,12 @@ export const successfulUserCreate = user => {
     user
   }
 }
+export const successfulUserUpdate = user => {
+  return {
+    type: 'SUCCESSFUL_USER_UPDATE',
+    user
+  }
+}
 
 export const fetchUsers = () => {
   return dispatch => {
@@ -54,6 +60,22 @@ export const createUser = user => {
         dispatch(finishFetchRequest())
         dispatch(successfulUserCreate(user))
       }
+    })
+  }
+
+}
+export const updateUser = user => {
+  return dispatch => {
+    // dispatch(makeFetchRequest())
+    UserService.updateUser(user)
+    .then(user => {
+      if(user.errors) {
+        dispatch(unsuccessfulFetchRequest(user.errors))
+      } 
+      // else {
+      //   dispatch(finishFetchRequest())
+      //   // dispatch(successfulUserUpdate(user))
+      // }
     })
   }
 

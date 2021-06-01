@@ -18,6 +18,15 @@ const UserService = {
     .then(response => response.json())
 
   },
+  updateUser(user) {
+    return fetch(`${API_URL}/users/${user.id}`, {
+      method: 'PUT',
+      headers: HEADERS(),
+      body: JSON.stringify(user)
+    })
+    .then(response => response.json())
+
+  },
 
   fetchUsersByDate(date) {
     return fetch(`${API_URL}/users/date`, {

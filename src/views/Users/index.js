@@ -4,25 +4,33 @@ import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import Button from 'muicss/lib/react/button';
 import { Waiting } from '../../components/MatchAuthenticated'
-import { fetchUsers, createUser  } from '../../redux/modules/Users/actions'
+import { fetchUsers, createUser, updateUser  } from '../../redux/modules/Users/actions'
 import ViewCerts from './ViewCerts'
 import ManageUsers from './ManageUsers'
 import UserForm from './UserForm'
 
 export const UserContext = createContext()
 
-const Users = (props) => {
+const Users = () => {
 
   const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(fetchUsers())
   }, [])
+
   const users = useSelector(state => state.users.users || [])
   const { makingRequestToAPI } = useSelector(state => state.appTransactions)
 
   const [showUsers, setShowUsers] = useState(false)
   const [showUserForm, setShowUserForm] = useState(false)
   const [showCerts, setShowCerts] = useState(false)
+
+  // const updateVaccineStatus = (user, status) => {
+  //   debugger
+  //   user.vaccinated = status
+  //   dispatch(updateUser(user))
+  // }
 
   const viewUsers = () => {
     setShowUsers(true)
@@ -60,7 +68,9 @@ const Users = (props) => {
               { makingRequestToAPI ?
                 <Waiting />
                 :
-                <ManageUsers />
+                <ManageUsers 
+                // updateVaccineStatus={ updateVaccineStatus } 
+                />
               }
             </UsersContainer>
           : showUserForm ?

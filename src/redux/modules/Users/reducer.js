@@ -16,6 +16,14 @@ export default (state = [], action) => {
         ...state,
         user: action.user
       }
+    // case 'SUCCESSFUL_USER_UPDATE':
+    //   const index = state.users.findIndex(user => user.id === action.user.id)
+    //   debugger
+    //   return [
+    //     ...state.users.slice(0, index),
+    //     { users: action.user },
+    //     ...state.users.slice(index + 1)
+    //   ]
 
     default:
       return state
