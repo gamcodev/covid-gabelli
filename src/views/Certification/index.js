@@ -33,7 +33,7 @@ const Certification = (props) => {
     })
     dispatch(logout())
   }
-
+  console.log(props.currentUser.vaccinated)
   return (
     <CertFormContainer>
       <div></div>
@@ -47,7 +47,7 @@ const Certification = (props) => {
             <div></div>
           }
         </ConditionalSurveyLink>
-        { props.currentUser.vaccinated ? 
+        { props.currentUser.vaccinated || props.currentUser.vaccinated === true ||  props.currentUser.vaccinated === 1 ? 
           <Fragment>
             <Vaccinated>
               <h3>Your proof of vaccination has been recorded. </h3>
