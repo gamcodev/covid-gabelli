@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { withRouter, NavLink } from 'react-router-dom';
 import styled from 'styled-components'
@@ -11,7 +11,7 @@ import CertForm from './CertForm'
 const Certification = (props) => {
 
   const dispatch = useDispatch()
-  const cert = useSelector(state => state.cert.cert || [])
+  // const cert = useSelector(state => state.cert.cert || [])
 
   const onSubmit = ( responses, userId ) => {
     dispatch(createCert(responses, userId))
@@ -47,8 +47,21 @@ const Certification = (props) => {
             <div></div>
           }
         </ConditionalSurveyLink>
-        <ReminderDiv><h3><strong>REMINDER: </strong>The questionnaire MUST be completed prior to leaving your home every day you plan on coming to the office.</h3></ReminderDiv>
-        <CertForm onSubmit={onSubmit} currentUser={props.currentUser}/>
+        { props.currentUser.vaccinated ? 
+          <Fragment>
+            <Vaccinated>
+              <h3>Your proof of vaccination has been recorded. </h3>
+              <h3> You are no longer required to complete the questionnaire before coming into the office. </h3>
+            </Vaccinated>
+          </Fragment>
+          :
+          <Fragment>
+            <ReminderDiv>
+              <h3><strong>REMINDER: </strong>The questionnaire MUST be completed prior to leaving your home every day you plan on coming to the office.</h3>
+            </ReminderDiv>
+            <CertForm onSubmit={onSubmit} currentUser={props.currentUser}/>
+          </Fragment>
+        }
       </CertFormFields>
       <div></div>
 
@@ -71,6 +84,9 @@ export default withRouter(Certification)
 //     <div></div>
 //   }
 // </ConditionalSurveyLink>
+const Vaccinated = styled.div `
+  text-align: center;
+`
 
 const CertFormContainer = styled.div `
   width: 100%;
