@@ -47,7 +47,7 @@ const Certification = (props) => {
             <div></div>
           }
         </ConditionalSurveyLink>
-        { props.currentUser.vaccinated || props.currentUser.vaccinated === true ||  props.currentUser.vaccinated === 1 ? 
+        { props.currentUser.vaccinated || props.currentUser.vaccinated === true ||  props.currentUser.vaccinated === 1 || props.currentUser.vaccinated === 'true' ? 
           <Fragment>
             <Vaccinated>
               <h3>Your proof of vaccination has been recorded. </h3>
