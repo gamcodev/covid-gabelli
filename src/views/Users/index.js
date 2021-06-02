@@ -22,7 +22,7 @@ const Users = () => {
   const users = useSelector(state => state.users.users || [])
   const { makingRequestToAPI } = useSelector(state => state.appTransactions)
 
-  const [showUsers, setShowUsers] = useState(false)
+  const [showUsers, setShowUsers] = useState(true)
   const [showUserForm, setShowUserForm] = useState(false)
   const [showCerts, setShowCerts] = useState(false)
 
