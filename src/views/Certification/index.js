@@ -100,7 +100,7 @@ const CertFormContainer = styled.div `
 const CertFormFields = styled.div `
   background: #f7f7f7;
   clear: both;
-  padding: 1rem 2rem;
+  padding: 1rem 2rem 2rem;
 `
 const ReminderDiv = styled.div `
   text-align: center;

@@ -116,9 +116,9 @@ const CertForm = (props) => {
               <div>
                 <span>In the past 14 days, have you or anyone in your household, traveled internationally and/or been required to quarantine per state requirements?</span><br />
                 <br />
-                <span>For the Rye, NY office, visit <a href="https://coronavirus.health.ny.gov/covid-19-travel-advisory" alt='NY state website' target="_blank" rel="noreferrer noopener">NY State COVID-19 Travel Advisory</a> to see the current list.</span><br />
+                <span>For the Rye, NY office, visit <a href="https://coronavirus.health.ny.gov/covid-19-travel-advisory" alt='NY state website' target="_blank" rel="noreferrer noopener">NY State COVID-19 Travel Advisory</a> to see current quarantine requirements.</span><br />
                 <br />
-                <span>For the Greenwich, CT office, visit <a href="https://portal.ct.gov/Coronavirus/Travel" alt='CT state website' target="_blank" rel="noreferrer noopener">CT COVID-19 Travel Advisory</a> to see the current list.</span>
+                <span>For the Greenwich, CT office, visit <a href="https://portal.ct.gov/Coronavirus/Travel" alt='CT state website' target="_blank" rel="noreferrer noopener">CT COVID-19 Travel Advisory</a> to see current quarantine requirements.</span>
                 <br />
                 <br />
                 <Radio
@@ -136,7 +136,7 @@ const CertForm = (props) => {
                 <hr />
               </div>
             {/* gathering */}
-              <div>
+              {/* <div>
                 <span>Have you or someone you've been in contact with attended a gathering where proper social distancing protocol was not followed in the past 14 days?</span>
                 <Radio
                   label='Yes'
@@ -151,7 +151,7 @@ const CertForm = (props) => {
                   onChange={ handleOnChange }
                 />
                 <hr />
-              </div>
+              </div> */}
             {/* public_trans */}
               <div>
                 <span>Are you taking public transportation (ex. subway, bus, train) to commute to the office?</span>
