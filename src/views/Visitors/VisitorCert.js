@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import Form from 'muicss/lib/react/form';
-import Radio from 'muicss/lib/react/radio';
-import Button from 'muicss/lib/react/button';
-import Checkbox from 'muicss/lib/react/checkbox';
+import Select from 'muicss/lib/react/select'
+import Option from 'muicss/lib/react/option'
+import Input from 'muicss/lib/react/input'
+import Form from 'muicss/lib/react/form'
+import Radio from 'muicss/lib/react/radio'
+import Button from 'muicss/lib/react/button'
+import Checkbox from 'muicss/lib/react/checkbox'
 import styled from 'styled-components'
 
 const AttestationDiv = styled.div `
@@ -15,37 +18,47 @@ const AttestationDiv = styled.div `
   }
 `
 
-const CertForm = (props) => {
+const VisitorCert = (props) => {
 
-  const [responses, setResponses] = useState({
+  const [visitor, setVisitor] = useState({
+    first_name: '',
+    last_name: '',
+    email: '',
+    visit_location: '',
+    visit_date: '',
     fever: null,
-    cough: null,
+    symptoms: null,
     positive: null,
     quarantined: null,
     travel: null,
-    gathering: null,
     public_transit: null,
     attest: null,
-    procedure: null,
   })
-  console.log(responses)
+  console.log(visitor)
 
   const handleOnChange = e => {
     const { name, value } = e.target
-    setResponses({ ...responses, [name]: value })
+    setVisitor({ ...visitor, [name]: value })
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    props.onSubmit(responses, props.currentUser.id)
+    props.onSubmit(visitor)
   }
 
 
   return (
     <div>
-
       <div>
         <Form>
+          
+          <Select
+            name='visit_location' label=''
+            value={ visitor.visit_location } onChange={ handleOnChange }>
+              <Option key={i} value='401' label='Rye, NY'/>
+              <Option key={i} value='191' label='Greenwich, CT'/>
+          </Select>
+          <hr />
           {/* Q1 fever */}
           <span>Do you currently have a fever of 100.4 degrees F or greater?</span>
           <Radio
@@ -135,23 +148,6 @@ const CertForm = (props) => {
                 />
                 <hr />
               </div>
-            {/* gathering */}
-              {/* <div>
-                <span>Have you or someone you've been in contact with attended a gathering where proper social distancing protocol was not followed in the past 14 days?</span>
-                <Radio
-                  label='Yes'
-                  name='gathering'
-                  value={1}
-                  onChange={ handleOnChange }
-                />
-                <Radio
-                  label='No'
-                  name='gathering'
-                  value={0}
-                  onChange={ handleOnChange }
-                />
-                <hr />
-              </div> */}
             {/* public_trans */}
               <div>
                 <span>Are you taking public transportation (ex. subway, bus, train) to commute to the office?</span>
@@ -169,26 +165,17 @@ const CertForm = (props) => {
                 />
                 <hr />
               </div>
-          { responses.cough && responses.fever && responses.positive && responses.quarantined && responses.travel && responses.public_transit ?
+          { visitor.symptoms && visitor.fever && visitor.positive && visitor.quarantined &&  visitor.travel && visitor.public_transit ?
             <div>
-              <p>If you answer "yes" to any of the above questions, you should not come into the office and contact HR.</p>
-              <p>If you answer "no" to all of the above questions, you are approved to come into the office. Please acknowledge the following:</p>
-              <AttestationDiv>
-                <Checkbox name="attest" value={1} onChange={ handleOnChange } />
-                <span>I, { props.currentUser.first_name } { props.currentUser.last_name }, certify I will follow my employer's return to work procedures.</span>
-              </AttestationDiv>
-              { responses.attest ?
+              <p>If you answer "yes" to any of the above questions, please reschedule your visit.</p>
+              <p>If you answer "no" to all of the above questions, your visit is approved. Please acknowledge the following:</p>
                 <div>
                   <AttestationDiv>
-                    <Checkbox name="procedure" value={1} onChange={ handleOnChange } />
-                    <span>I, { props.currentUser.first_name } { props.currentUser.last_name }, certify all answers are true and accurate to the best of my knowledge.</span>
+                    <Checkbox name="attest" value={1} onChange={ handleOnChange } />
+                    <span>I certify all answers are true and accurate to the best of my knowledge.</span>
                   </AttestationDiv>
-
                 </div>
-                :
-                null
-              }
-              { responses.attest && responses.procedure ?
+              { visitor.attest  ?
                 <Button variant="raised"  onClick={handleSubmit}>Submit</Button>
                 :
                 null
@@ -203,9 +190,9 @@ const CertForm = (props) => {
   )
 }
 
-export default CertForm
+export default VisitorCert
 
-CertForm.propTypes = {
+VisitorCert.propTypes = {
   fever: PropTypes.bool,
   cough: PropTypes.bool,
   positive: PropTypes.bool,
@@ -214,8 +201,3 @@ CertForm.propTypes = {
 }
 
 
-// const normalizeBoolean = v => {
-//   if (v === 'true') { return true }
-//   if (v === 'false') { return false }
-//   return v
-// }

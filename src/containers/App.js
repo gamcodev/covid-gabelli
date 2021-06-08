@@ -13,6 +13,7 @@ import Results from '../views/Survey/Results'
 import Comments from '../views/Survey/Comments'
 import AdminHome from '../views/AdminHome'
 import Certification from '../views/Certification'
+import Visitors from '../views/Visitors'
 import Survey from '../views/Survey'
 import ThankYou from '../views/ThankYou'
 import SurveyComplete from '../views/SurveyComplete'
@@ -61,6 +62,7 @@ class App extends Component {
           <MatchAuthenticated path='/survey/results' exact component={ Results } {...authProps} />
           <MatchAuthenticated path='/survey/results/comments' exact component={ Comments } {...authProps} />
           <RedirectUnauthenticated path='/login' exact component={ Login } { ...authProps } />
+          <Route path='/visitors' exact component={ Visitors } />
           <Route path='/thankyou' exact component={ ThankYou } />
           <Route path='/survey_complete' exact component={ SurveyComplete } />
         </Switch>
