@@ -64,6 +64,7 @@ class App extends Component {
           <MatchAuthenticated path='/survey/results/comments' exact component={ Comments } {...authProps} />
           <RedirectUnauthenticated path='/login' exact component={ Login } { ...authProps } />
           <Route path='/visitors' exact component={ Visitors } />
+          <Route path='/visitor' exact component={ Visitors } />
           <Route path='/visitor_status' exact component={ VisitorStatus } />
           <Route path='/thankyou' exact component={ ThankYou } />
           <Route path='/survey_complete' exact component={ SurveyComplete } />
