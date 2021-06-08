@@ -4,8 +4,7 @@ import { withRouter, NavLink } from 'react-router-dom';
 import styled from 'styled-components'
 import moment from 'moment'
 // import { FaArrowRight } from 'react-icons/fa'
-import { createCert } from '../../redux/modules/Cert/actions'
-import { logout } from '../../redux/modules/Auth/actions'
+import { createVisitor } from '../../redux/modules/Cert/actions'
 import VisitorCert from './VisitorCert'
 
 const Visitors = (props) => {
@@ -13,24 +12,23 @@ const Visitors = (props) => {
   const dispatch = useDispatch()
 
   const onSubmit = ( responses ) => {
-    dispatch(createCert(responses))
+    dispatch(createVisitor(responses))
     showResults(responses)
   }
 
   const showResults = (r) => {
-    r.cough === '1' || r.fever === '1' || r.positive === '1' || r.quarantined === '1' || r.travel === '1' || r.gathering=== '1' || r.public_transit === '1' ?
+    r.cough === '1' || r.fever === '1' || r.positive === '1' || r.quarantined === '1' || r.travel === '1' || r.public_transit === '1' ?
     props.history.push({
-      pathname: '/thankyou',
+      pathname: '/visitor_status',
       result: 'no',
-      workdate: moment().format("MMM Do, YYYY")
+      // workdate: moment().format("MMM Do, YYYY")
     })
     :
     props.history.push({
-      pathname: '/thankyou',
+      pathname: '/visitor_status',
       result: 'yes',
-      workdate: moment().format("MMM Do, YYYY")
+      // workdate: moment().format("MMM Do, YYYY")
     })
-    dispatch(logout())
   }
 
   return (

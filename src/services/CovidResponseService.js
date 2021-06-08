@@ -12,6 +12,15 @@ const CovidResponseService = {
     })
     .then(response => response.json())
   },
+  createVisitor(visitor) {
+    return fetch(`${API_URL}/visitors`, {
+      method: 'POST',
+      headers: HEADERS(),
+      credentials: 'include',
+      body: JSON.stringify({ visitor })
+    })
+    .then(response => response.json())
+  },
 
 }
 

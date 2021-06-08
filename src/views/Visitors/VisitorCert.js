@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import Select from 'muicss/lib/react/select'
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
 import Option from 'muicss/lib/react/option'
 import Input from 'muicss/lib/react/input'
 import Form from 'muicss/lib/react/form'
@@ -8,6 +9,7 @@ import Radio from 'muicss/lib/react/radio'
 import Button from 'muicss/lib/react/button'
 import Checkbox from 'muicss/lib/react/checkbox'
 import styled from 'styled-components'
+import { DateTime } from 'luxon'
 
 const AttestationDiv = styled.div `
   display: flex;
@@ -20,12 +22,17 @@ const AttestationDiv = styled.div `
 
 const VisitorCert = (props) => {
 
+  const [startDate, setStartDate] = useState(new Date())
+
+  const dt = DateTime.now();
+  const maxDate = dt.plus({days: 2})
+
   const [visitor, setVisitor] = useState({
     first_name: '',
     last_name: '',
     email: '',
     visit_location: '',
-    visit_date: '',
+    visit_date: startDate,
     fever: null,
     symptoms: null,
     positive: null,
@@ -34,12 +41,15 @@ const VisitorCert = (props) => {
     public_transit: null,
     attest: null,
   })
-  console.log(visitor)
 
   const handleOnChange = e => {
     const { name, value } = e.target
     setVisitor({ ...visitor, [name]: value })
   }
+
+  useEffect(() => {
+    setVisitor({ ...visitor, visit_date: startDate })
+  }, [startDate]) 
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -51,13 +61,43 @@ const VisitorCert = (props) => {
     <div>
       <div>
         <Form>
-          
-          <Select
+          <Input
+            floatingLabel={true}
+            style={{marginTop: '1rem', textAlign: 'left'}}
+            label='First Name'
+            name='first_name'
+            onChange={ handleOnChange }
+          />
+          <Input
+            floatingLabel={true}
+            style={{marginTop: '1rem', textAlign: 'left'}}
+            label='Last Name'
+            name='last_name'
+            onChange={ handleOnChange }
+          />
+          <Input
+            floatingLabel={true}
+            style={{textAlign: 'left'}}
+            label='Email*'
+            name='email'
+            onChange={ handleOnChange }
+          />
+          <select
             name='visit_location' label=''
             value={ visitor.visit_location } onChange={ handleOnChange }>
-              <Option key={i} value='401' label='Rye, NY'/>
-              <Option key={i} value='191' label='Greenwich, CT'/>
-          </Select>
+              <Option key={1} value='' label='Choose office location...'/>
+              <Option key={2} value='401' label='Rye, NY'/>
+              <Option key={3} value='191' label='Greenwich, CT'/>
+          </select>
+          <p>Please select the date of your scheduled visit:</p>
+          <DatePicker 
+            selected={startDate} 
+            name='visit_date'
+            value={ visitor.visit_date }
+            onChange={(date) => setStartDate(date)} 
+            minDate={new Date()}
+            maxDate={ maxDate }
+          />
           <hr />
           {/* Q1 fever */}
           <span>Do you currently have a fever of 100.4 degrees F or greater?</span>
@@ -79,13 +119,13 @@ const VisitorCert = (props) => {
               <span >In the past 14 days, have you or anyone in your household had any COVID-related <a href="https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/symptoms.html" alt='CDC website' target="_blank" rel="noreferrer noopener">symptoms</a>, including fever, cough, shortness of breath, difficulty breathing, chills, muscle pain, sore throat, or new loss of taste or smell, that cannot be attributed to another health condition, in the past 14 days?</span>
               <Radio
                 label='Yes'
-                name='cough'
+                name='symptoms'
                 value={1}
                 onChange={ handleOnChange }
               />
               <Radio
                 label='No'
-                name='cough'
+                name='symptoms'
                 value={0}
                 onChange={ handleOnChange }
               />
@@ -194,7 +234,7 @@ export default VisitorCert
 
 VisitorCert.propTypes = {
   fever: PropTypes.bool,
-  cough: PropTypes.bool,
+  symptoms: PropTypes.bool,
   positive: PropTypes.bool,
   quarantined: PropTypes.bool,
   attest: PropTypes.bool,

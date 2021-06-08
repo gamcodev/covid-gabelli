@@ -37,3 +37,19 @@ export const createCert = (data, userId) => {
     })
   }
 }
+
+export const createVisitor = (data) => {
+  return dispatch => {
+    dispatch(makeFetchRequest())
+    CovidResponseService.createVisitor(data)
+    .then(cert => {
+      if(cert.errors) {
+        dispatch(unsuccessfulFetchRequest(cert.errors))
+        dispatch(unsuccessfulCertCreate(cert.errors))
+      } else {
+        dispatch(finishFetchRequest())
+        dispatch(successfulCertFetch(cert))
+      }
+    })
+  }
+}
