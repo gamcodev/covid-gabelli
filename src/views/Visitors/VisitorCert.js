@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchUsers  } from '../../redux/modules/Users/actions'
 import PropTypes from 'prop-types'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
@@ -10,6 +12,7 @@ import Button from 'muicss/lib/react/button'
 import Checkbox from 'muicss/lib/react/checkbox'
 import styled from 'styled-components'
 import { DateTime } from 'luxon'
+import Autocomplete from './Autocomplete'
 
 const AttestationDiv = styled.div `
   display: flex;
@@ -41,6 +44,15 @@ const VisitorCert = (props) => {
     public_transit: null,
     attest: null,
   })
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchUsers())
+  }, [])
+
+  const users = useSelector(state => state.users.users || [])
+  const hosts = users?.map(u => u.last_name)
 
   const handleOnChange = e => {
     const { name, value } = e.target
@@ -80,24 +92,34 @@ const VisitorCert = (props) => {
             style={{textAlign: 'left'}}
             label='Email*'
             name='email'
+            type='email'
+            required={true}
             onChange={ handleOnChange }
           />
-          <select
+                      <Autocomplete hosts={ hosts } />
+
+          <QuestionRow>
+            <div>
+            <select
             name='visit_location' label=''
             value={ visitor.visit_location } onChange={ handleOnChange }>
               <Option key={1} value='' label='Choose office location...'/>
               <Option key={2} value='401' label='Rye, NY'/>
               <Option key={3} value='191' label='Greenwich, CT'/>
           </select>
-          <p>Please select the date of your scheduled visit:</p>
-          <DatePicker 
-            selected={startDate} 
-            name='visit_date'
-            value={ visitor.visit_date }
-            onChange={(date) => setStartDate(date)} 
-            minDate={new Date()}
-            maxDate={ maxDate }
-          />
+            </div>
+            <div>
+              <p>Please select the date of your scheduled visit:</p>
+              <DatePicker 
+                selected={startDate} 
+                name='visit_date'
+                value={ visitor.visit_date }
+                onChange={(date) => setStartDate(date)} 
+                minDate={new Date()}
+                maxDate={ maxDate }
+              />
+            </div>
+          </QuestionRow>
           <hr />
           {/* Q1 fever */}
           <span>Do you currently have a fever of 100.4 degrees F or greater?</span>
@@ -241,3 +263,8 @@ VisitorCert.propTypes = {
 }
 
 
+const QuestionRow = styled.div `
+  display: flex;
+  padding: 2rem 0;
+  justify-content: space-between;
+`

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { withRouter, NavLink } from 'react-router-dom';
 import styled from 'styled-components'
@@ -8,7 +8,7 @@ import { createVisitor } from '../../redux/modules/Cert/actions'
 import VisitorCert from './VisitorCert'
 
 const Visitors = (props) => {
-
+  
   const dispatch = useDispatch()
 
   const onSubmit = ( responses ) => {
