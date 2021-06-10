@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import Input from 'muicss/lib/react/input'
+import styled from 'styled-components'
 
+const Autocomplete = ({ hosts, setHost }) => {
 
-const Autocomplete = ( { hosts }) => {
-
+    
   const [state, setState] = useState({
     activeItem: 0,
     filteredItems: [],
@@ -13,7 +14,6 @@ const Autocomplete = ( { hosts }) => {
 
   const handleChange = (e) => {
     const inputValue = e.currentTarget.value
-    console.log(inputValue)
     const filteredItems = hosts.filter(
       (optionName) => optionName.toLowerCase().indexOf(inputValue.toLowerCase()) > -1
     )
@@ -31,17 +31,16 @@ const Autocomplete = ( { hosts }) => {
       displayItems: false,
       inputValue: e.currentTarget.innerText
     })
+    setHost(e.currentTarget.innerText)
   }
 
   const filteredList = state.filteredItems.map((optionName, i) => (
-    <p key={ i } onClick={ handleClick }>{ optionName }</p>
+    <ListOption key={ i } onClick={ handleClick }>
+      <span>{ optionName }</span>
+    </ListOption>
   )).slice(0, 10)
   
 
-  console.log(state.displayItems)
-  console.log(state.filteredItems)
-  console.log(state.inputValue.length)
-  console.log(state.filteredItems.length)
   return (
     <div>
       <Input 
@@ -53,7 +52,7 @@ const Autocomplete = ( { hosts }) => {
       />
       { state.displayItems && state.inputValue.length && state.filteredItems.length ? 
       
-      <ul>{ filteredList }</ul>
+      <HostList>{ filteredList }</HostList>
       :
         null
       }
@@ -62,3 +61,21 @@ const Autocomplete = ( { hosts }) => {
 }
 
 export default Autocomplete
+
+const HostList = styled.div `
+  position: absolute;
+  margin-top: -19px;
+  background-color: #fff;
+  width: 200px;
+  z-index: 1000;
+  -webkit-box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2); 
+  box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
+`
+
+const ListOption = styled.div `
+  padding: 0.5rem 1rem;
+
+  &:hover {
+    background: rgba(0, 91, 151, 0.5);
+  }
+`

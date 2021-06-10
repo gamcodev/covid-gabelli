@@ -8,7 +8,7 @@ import { createVisitor } from '../../redux/modules/Cert/actions'
 import VisitorCert from './VisitorCert'
 
 const Visitors = (props) => {
-  
+
   const dispatch = useDispatch()
 
   const onSubmit = ( responses ) => {
@@ -69,6 +69,10 @@ const CertFormFields = styled.div `
   background: #f7f7f7;
   clear: both;
   padding: 1rem 2rem 2rem;
+  @media (max-width: 680px)  {
+    padding: 1rem;
+  }
+
 `
 const ReminderDiv = styled.div `
   text-align: center;
