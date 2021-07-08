@@ -15,6 +15,8 @@ import AdminHome from '../views/AdminHome'
 import Certification from '../views/Certification'
 import Visitors from '../views/Visitors'
 import VisitorStatus from '../views/Visitors/VisitorStatus'
+import Events from '../views/Events'
+import EventStatus from '../views/Events/EventStatus'
 import Survey from '../views/Survey'
 import ThankYou from '../views/ThankYou'
 import SurveyComplete from '../views/SurveyComplete'
@@ -66,6 +68,8 @@ class App extends Component {
           <Route path='/visitors' exact component={ Visitors } />
           <Route path='/visitor' exact component={ Visitors } />
           <Route path='/visitor_status' exact component={ VisitorStatus } />
+          <Route path='/events' exact component={ Events } />
+          <Route path='/event_status' exact component={ EventStatus } />
           <Route path='/thankyou' exact component={ ThankYou } />
           <Route path='/survey_complete' exact component={ SurveyComplete } />
         </Switch>
