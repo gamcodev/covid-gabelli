@@ -57,6 +57,14 @@ const AdminHome = (props) => {
           </NavLink>
         </AdminNavRow>
         <div></div>
+        <AdminNavRow>
+          <NavLink to='/admin/golf'>
+            <Button variant='raised'>Golf Screening</Button>
+          </NavLink>
+          <NavLink to='/admin/beach'>
+            <Button variant='raised'>Beach Screening</Button>
+          </NavLink>
+        </AdminNavRow>
       </AdminScreen>
     </div>
   )

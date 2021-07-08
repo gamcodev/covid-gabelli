@@ -16,6 +16,8 @@ import Certification from '../views/Certification'
 import Visitors from '../views/Visitors'
 import VisitorStatus from '../views/Visitors/VisitorStatus'
 import Events from '../views/Events'
+import GolfCerts from '../views/Users/GolfCerts'
+import BeachCerts from '../views/Users/BeachCerts'
 import EventStatus from '../views/Events/EventStatus'
 import Survey from '../views/Survey'
 import ThankYou from '../views/ThankYou'
@@ -65,10 +67,13 @@ class App extends Component {
           <MatchAuthenticated path='/survey/results' exact component={ Results } {...authProps} />
           <MatchAuthenticated path='/survey/results/comments' exact component={ Comments } {...authProps} />
           <RedirectUnauthenticated path='/login' exact component={ Login } { ...authProps } />
+          <MatchAuthenticated path='/admin/golf' exact component={ GolfCerts } {...authProps} />
+          <MatchAuthenticated path='/admin/beach' exact component={ BeachCerts } {...authProps} />
           <Route path='/visitors' exact component={ Visitors } />
           <Route path='/visitor' exact component={ Visitors } />
           <Route path='/visitor_status' exact component={ VisitorStatus } />
-          <Route path='/events' exact component={ Events } />
+          <Route path='/golf' exact component={ Events } />
+          <Route path='/beach' exact component={ Events } />
           <Route path='/event_status' exact component={ EventStatus } />
           <Route path='/thankyou' exact component={ ThankYou } />
           <Route path='/survey_complete' exact component={ SurveyComplete } />

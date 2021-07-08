@@ -7,6 +7,7 @@ import auth from './modules/Auth/reducer'
 import cert from './modules/Cert/reducer'
 import users from './modules/Users/reducer'
 import survey from './modules/Survey/reducer'
+import visitors from './modules/Visitors/reducer'
 
 const reducers = combineReducers({
   appTransactions,
@@ -14,7 +15,8 @@ const reducers = combineReducers({
   auth,
   cert,
   users,
-  survey
+  survey,
+  visitors,
 })
 
 export default createStore(

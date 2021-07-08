@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchUsers  } from '../../redux/modules/Users/actions'
 import PropTypes from 'prop-types'
-import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css"
 import Option from 'muicss/lib/react/option'
 import Input from 'muicss/lib/react/input'
 import Form from 'muicss/lib/react/form'
@@ -22,20 +19,17 @@ const AttestationDiv = styled.div `
   }
 `
 
-const VisitorCert = (props) => {
+const EventCert = (props) => {
+  const { eventDetails } = props
 
-  const [startDate, setStartDate] = useState(new Date())
 
-  const dt = DateTime.now();
-  const maxDate = dt.plus({days: 2})
-
-  const [host, setHost] = useState('')
   const [visitor, setVisitor] = useState({
     first_name: '',
     last_name: '',
     email: '',
-    visit_location: '',
-    visit_date: startDate,
+    phone: '',
+    visit_location: eventDetails.eventType,
+    visit_date: '',
     fever: null,
     symptoms: null,
     positive: null,
@@ -43,41 +37,20 @@ const VisitorCert = (props) => {
     travel: null,
     public_transit: null,
     attest: null,
-    host_employee_id: ''
+    host_employee_id: eventDetails.hostId
   })
 
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(fetchUsers())
-  }, [])
-
-  const users = useSelector(state => state.users.users || [])
-  const hosts = users?.map(u => u.last_name)
+  // const dispatch = useDispatch()
 
   const handleOnChange = e => {
     const { name, value } = e.target
     setVisitor({ ...visitor, [name]: value })
   }
 
-  useEffect(() => {
-    setVisitor({ ...visitor, visit_date: startDate })
-  }, [startDate]) 
-
-  useEffect(() => {
-    let hostEmployee
-    if (host) {
-      hostEmployee = users.find(user => user.last_name === host)
-      setVisitor({ ...visitor, host_employee_id: hostEmployee.id })
-    }
-  }, [host])
-
-
   const handleSubmit = (e) => {
     e.preventDefault()
     props.onSubmit(visitor)
   }
-
 
   return (
     <div>
@@ -106,31 +79,14 @@ const VisitorCert = (props) => {
             required={true}
             onChange={ handleOnChange }
           />
+          <Input
+            floatingLabel={true}
+            style={{textAlign: 'left'}}
+            label='Phone'
+            name='phone'
+            onChange={ handleOnChange }
+          />
 
-          <QuestionRow>
-            <div>
-              <p>Please select the location of your scheduled visit:</p>
-              <select
-              name='visit_location' label=''
-              value={ visitor.visit_location } onChange={ handleOnChange }>
-                <Option key={1} value='' label='Choose office location...'/>
-                <Option key={2} value='401' label='Rye, NY'/>
-                <Option key={3} value='191' label='Greenwich, CT'/>
-              </select>
-            </div>
-            <div>
-              <p>Please select the date of your scheduled visit:</p>
-              <DatePicker 
-                selected={startDate} 
-                name='visit_date'
-                value={ visitor.visit_date }
-                onChange={(date) => setStartDate(date)} 
-                minDate={new Date()}
-                maxDate={ maxDate }
-              />
-            </div>
-          </QuestionRow>
-          <hr />
           {/* Q1 fever */}
           <span>Do you currently have a fever of 100.4 degrees F or greater?</span>
           <Radio
@@ -251,8 +207,8 @@ const VisitorCert = (props) => {
               </div>
           { visitor.symptoms && visitor.fever && visitor.positive && visitor.quarantined &&  visitor.travel && visitor.public_transit ?
             <div>
-              <p>If you answer "yes" to any of the above questions, please reschedule your visit.</p>
-              <p>If you answer "no" to all of the above questions, your visit is approved. Please acknowledge the following:</p>
+              <p>If you answer "yes" to any of the above questions, you are not permitted to attend the event.</p>
+              <p>If you answer "no" to all of the above questions, your attendance is approved. Please acknowledge the following:</p>
                 <div>
                   <AttestationDiv>
                     <Checkbox name="attest" value={1} onChange={ handleOnChange } />
@@ -274,9 +230,9 @@ const VisitorCert = (props) => {
   )
 }
 
-export default VisitorCert
+export default EventCert
 
-VisitorCert.propTypes = {
+EventCert.propTypes = {
   fever: PropTypes.bool,
   symptoms: PropTypes.bool,
   positive: PropTypes.bool,
