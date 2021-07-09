@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
-import Option from 'muicss/lib/react/option'
 import Input from 'muicss/lib/react/input'
 import Form from 'muicss/lib/react/form'
 import Radio from 'muicss/lib/react/radio'
 import Button from 'muicss/lib/react/button'
 import Checkbox from 'muicss/lib/react/checkbox'
 import styled from 'styled-components'
-import { DateTime } from 'luxon'
 
 const AttestationDiv = styled.div `
   display: flex;

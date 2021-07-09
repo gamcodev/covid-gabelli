@@ -15,7 +15,7 @@ const Events = (props) => {
   })
 
   useEffect(() => {
-    if (location.pathname === '/beach') {
+    if (location.pathname === '/beach' || location.pathname === '/beach/') {
       setEventDetails({
         eventType: 'beach',
         hostId: 10293
