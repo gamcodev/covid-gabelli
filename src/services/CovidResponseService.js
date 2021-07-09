@@ -16,7 +16,7 @@ const CovidResponseService = {
     return fetch(`${API_URL}/visitors`, {
       method: 'POST',
       headers: HEADERS(),
-      credentials: 'include',
+      // credentials: 'include',
       body: JSON.stringify({ visitor })
     })
     .then(response => response.json())
