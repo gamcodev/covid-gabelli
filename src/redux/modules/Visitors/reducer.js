@@ -1,15 +1,10 @@
 export default (state = [], action) => {
   switch(action.type) {
 
-    case 'SUCCESSFUL_CERT_FETCH':
+    case 'SUCCESSFUL_VISITORS_FETCH':
       return {
         ...state,
-        cert: action.cert
-      }
-    case 'UNSUCCESSFUL_CERT_CREATE':
-      return {
-        ...state,
-        errors: action.errors
+        visitors: action.visitors
       }
     default:
       return state

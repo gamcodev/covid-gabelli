@@ -1,9 +1,7 @@
-import React, { Fragment, useContext } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { withRouter, NavLink } from 'react-router-dom';
+import React, { Fragment } from 'react'
+import { useDispatch } from 'react-redux'
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components'
-import moment from 'moment'
-// import { FaArrowRight } from 'react-icons/fa'
 import { createVisitor } from '../../redux/modules/Cert/actions'
 import VisitorCert from './VisitorCert'
 
@@ -21,13 +19,11 @@ const Visitors = (props) => {
     props.history.push({
       pathname: '/visitor_status',
       result: 'no',
-      // workdate: moment().format("MMM Do, YYYY")
     })
     :
     props.history.push({
       pathname: '/visitor_status',
       result: 'yes',
-      // workdate: moment().format("MMM Do, YYYY")
     })
   }
 
@@ -51,11 +47,6 @@ const Visitors = (props) => {
 
 export default withRouter(Visitors)
 
-
-const Vaccinated = styled.div `
-  text-align: center;
-`
-
 const CertFormContainer = styled.div `
   width: 100%;
   display: inline-grid;
@@ -77,21 +68,4 @@ const CertFormFields = styled.div `
 const ReminderDiv = styled.div `
   text-align: center;
   margin-bottom: 2rem;
-`
-const SLink = styled.div `
-  span {
-    cursor: pointer;
-    align-self: center;
-  }
-
-`
-const ConditionalSurveyLink = styled.div `
-  text-align: center;
-  @media (min-width: 680px)  {
-    visibility: hidden;
-  }
-  @media (max-width: 680px)  {
-    visibility: visible;
-  }
-
 `

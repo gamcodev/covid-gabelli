@@ -1,32 +1,8 @@
 import React from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
 import Button from 'muicss/lib/react/button';
-
 import styled from 'styled-components'
 
-const AdminScreen = styled.div `
-  width: 100%;
-  display: inline-grid;
-  grid-template-columns: 25% 50% 25%;
-  clear: both;
-  @media (max-width: 680px)  {
-    grid-template-columns: 10% 80% 10%;
-  }
-`
-const AdminNavRow = styled.div `
-  display: inline-grid;
-  grid-template-columns: 50% 50%;
-  height: 60px;
-  text-align: center;
-  Button {
-    background-color: #f3f3f3;
-    width: 95%;
-  }
-  @media (max-width: 680px)  {
-    height: 120px;
-    grid-template-columns: 100%;
-  }
-`
 const AdminHome = (props) => {
 
   return (
@@ -57,6 +33,9 @@ const AdminHome = (props) => {
           </NavLink>
         </AdminNavRow>
         <div></div>
+      </AdminScreen>
+      <AdminScreen>
+        <div></div>
         <AdminNavRow>
           <NavLink to='/admin/golf'>
             <Button variant='raised'>Golf Screening</Button>
@@ -71,3 +50,27 @@ const AdminHome = (props) => {
 }
 
 export default withRouter(AdminHome)
+
+const AdminScreen = styled.div `
+  width: 100%;
+  display: inline-grid;
+  grid-template-columns: 25% 50% 25%;
+  clear: both;
+  @media (max-width: 680px)  {
+    grid-template-columns: 10% 80% 10%;
+  }
+`
+const AdminNavRow = styled.div `
+  display: inline-grid;
+  grid-template-columns: 50% 50%;
+  height: 60px;
+  text-align: center;
+  Button {
+    background-color: #f3f3f3;
+    width: 95%;
+  }
+  @media (max-width: 680px)  {
+    height: 120px;
+    grid-template-columns: 100%;
+  }
+`
