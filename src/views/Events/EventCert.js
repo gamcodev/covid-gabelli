@@ -26,7 +26,7 @@ const EventCert = (props) => {
     email: '',
     phone: '',
     visit_location: eventDetails.eventType,
-    visit_date: '',
+    visit_date: eventDetails.eventDate,
     fever: null,
     symptoms: null,
     positive: null,

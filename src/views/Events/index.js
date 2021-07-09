@@ -11,14 +11,16 @@ const Events = (props) => {
   const location = useLocation()
   const [eventDetails, setEventDetails] = useState({
     eventType: 'golf',
-    hostId: 10366
+    hostId: 10366,
+    eventDate: new Date('July 14, 2021')
   })
 
   useEffect(() => {
     if (location.pathname === '/beach' || location.pathname === '/beach/') {
       setEventDetails({
         eventType: 'beach',
-        hostId: 10293
+        hostId: 10293,
+        eventDate: new Date('August 9, 2021')
       })
     } 
   },[ location ])
