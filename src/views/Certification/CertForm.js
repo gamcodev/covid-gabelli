@@ -97,7 +97,7 @@ const CertForm = (props) => {
               </div>
             {/* Q4 quarantined */}
               <div>
-                <span>In the past 14 days were you or anyone in your household notified by a medical provider, local department of health, employer, school, or other entity to quarantine because of COVID-19 or potential exposure to COVID-19?</span>
+                <span>In the past 14 days were you or anyone in your household notified by a medical provider, local department of health, employer, school, or other entity that they have had potential exposure to COVID-19?</span>
                 <Radio
                   label='Yes'
                   name='quarantined'
@@ -112,7 +112,7 @@ const CertForm = (props) => {
                 />
                 <hr />
               </div>
-            {/* travel */}
+            {/* Q5 travel */}
               <div>
                 <span>In the past 14 days, have you or anyone in your household, traveled internationally and/or been required to quarantine per state requirements?</span><br />
                 <br />
@@ -135,41 +135,8 @@ const CertForm = (props) => {
                 />
                 <hr />
               </div>
-            {/* gathering */}
-              {/* <div>
-                <span>Have you or someone you've been in contact with attended a gathering where proper social distancing protocol was not followed in the past 14 days?</span>
-                <Radio
-                  label='Yes'
-                  name='gathering'
-                  value={1}
-                  onChange={ handleOnChange }
-                />
-                <Radio
-                  label='No'
-                  name='gathering'
-                  value={0}
-                  onChange={ handleOnChange }
-                />
-                <hr />
-              </div> */}
-            {/* public_trans */}
-              <div>
-                <span>Are you taking public transportation (ex. subway, bus, train) to commute to the office?</span>
-                <Radio
-                  label='Yes'
-                  name='public_transit'
-                  value={1}
-                  onChange={ handleOnChange }
-                />
-                <Radio
-                  label='No'
-                  name='public_transit'
-                  value={0}
-                  onChange={ handleOnChange }
-                />
-                <hr />
-              </div>
-          { responses.cough && responses.fever && responses.positive && responses.quarantined && responses.travel && responses.public_transit ?
+           
+          { responses.cough && responses.fever && responses.positive && responses.quarantined && responses.travel ?
             <div>
               <p>If you answer "yes" to any of the above questions, you should not come into the office and contact HR.</p>
               <p>If you answer "no" to all of the above questions, you are approved to come into the office. Please acknowledge the following:</p>
