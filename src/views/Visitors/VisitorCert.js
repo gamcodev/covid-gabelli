@@ -190,7 +190,7 @@ const VisitorCert = (props) => {
               </div>
             {/* Q4 quarantined */}
               <div>
-                <span>In the past 14 days were you or anyone in your household notified by a medical provider, local department of health, employer, school, or other entity to quarantine because of COVID-19 or potential exposure to COVID-19?</span>
+                <span>In the past 14 days were you or anyone in your household notified by a medical provider, local department of health, employer, school, or other entity that they have had potential exposure to COVID-19?</span>
                 <Radio
                   style={{ marginLeft: '1rem'}}
                   label='Yes'
@@ -207,51 +207,8 @@ const VisitorCert = (props) => {
                 />
                 <hr />
               </div>
-            {/* travel */}
-              <div>
-                <span>In the past 14 days, have you or anyone in your household, traveled internationally and/or been required to quarantine per state requirements?</span><br />
-                <br />
-                <span>For the Rye, NY office, visit <a href="https://coronavirus.health.ny.gov/covid-19-travel-advisory" alt='NY state website' target="_blank" rel="noreferrer noopener">NY State COVID-19 Travel Advisory</a> to see current quarantine requirements.</span><br />
-                <br />
-                <span>For the Greenwich, CT office, visit <a href="https://portal.ct.gov/Coronavirus/Travel" alt='CT state website' target="_blank" rel="noreferrer noopener">CT COVID-19 Travel Advisory</a> to see current quarantine requirements.</span>
-                <br />
-                <br />
-                <Radio
-                  style={{ marginLeft: '1rem'}}
-                  label='Yes'
-                  name='travel'
-                  value={1}
-                  onChange={ handleOnChange }
-                />
-                <Radio
-                  style={{ marginLeft: '1rem'}}
-                  label='No'
-                  name='travel'
-                  value={0}
-                  onChange={ handleOnChange }
-                />
-                <hr />
-              </div>
-            {/* public_trans */}
-              <div>
-                <span>Are you taking public transportation (ex. subway, bus, train) to commute to the office?</span>
-                <Radio
-                  style={{ marginLeft: '1rem'}}
-                  label='Yes'
-                  name='public_transit'
-                  value={1}
-                  onChange={ handleOnChange }
-                />
-                <Radio
-                  style={{ marginLeft: '1rem'}}
-                  label='No'
-                  name='public_transit'
-                  value={0}
-                  onChange={ handleOnChange }
-                />
-                <hr />
-              </div>
-          { visitor.symptoms && visitor.fever && visitor.positive && visitor.quarantined &&  visitor.travel && visitor.public_transit ?
+           
+          { visitor.symptoms && visitor.fever && visitor.positive && visitor.quarantined ?
             <div>
               <p>If you answer "yes" to any of the above questions, please reschedule your visit.</p>
               <p>If you answer "no" to all of the above questions, your visit is approved. Please acknowledge the following:</p>
