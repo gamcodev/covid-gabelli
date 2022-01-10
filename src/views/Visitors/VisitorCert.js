@@ -54,10 +54,10 @@ const VisitorCert = (props) => {
   }, [])
 
   const users = useSelector(state => state.users.users || [])
-  const hosts = users?.map(u => u.last_name)
+  const hosts = users?.filter(u => u.id !== 10211).map(u => u.last_name)
 
   const handleOnChange = e => {
-    const { name, value } = e.target
+    const { name, value } = e.targetJ
     setVisitor({ ...visitor, [name]: value })
   }
 
