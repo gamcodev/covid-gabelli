@@ -26,12 +26,12 @@ const Events = (props) => {
   },[ location ])
 
   const onSubmit = ( responses ) => {
-    dispatch(createVisitor(responses))
+    // dispatch(createVisitor(responses))
     showResults(responses)
   }
 
   const showResults = (r) => {
-    r.cough === '1' || r.fever === '1' || r.positive === '1' || r.quarantined === '1' || r.travel === '1' || r.public_transit === '1' ?
+    r.cough === '1' || r.fever === '1' || r.positive === '1' || r.quarantined === '1' || r.travel === '1' || r.public_transit === '1' || r.vaccinated === '0' ?
     props.history.push({
       pathname: '/event_status',
       result: 'no',

@@ -11,6 +11,7 @@ const Confirmation = styled.div `
 `
 const VisitorStatus = (props) => {
   const { result } = props.location
+	console.log(result)
 
   if ( result && result === 'yes') {
     return (

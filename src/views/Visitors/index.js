@@ -15,7 +15,7 @@ const Visitors = (props) => {
   }
 
   const showResults = (r) => {
-    r.cough === '1' || r.fever === '1' || r.positive === '1' || r.quarantined === '1' || r.travel === '1' || r.public_transit === '1' ?
+    r.cough === '1' || r.fever === '1' || r.positive === '1' || r.quarantined === '1' || r.travel === '1' || r.public_transit === '1' || r.vaccinated === '0' ?
     props.history.push({
       pathname: '/visitor_status',
       result: 'no',

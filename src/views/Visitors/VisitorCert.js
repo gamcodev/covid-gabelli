@@ -30,6 +30,8 @@ const VisitorCert = (props) => {
   const dt = DateTime.now();
   const maxDate = dt.plus({days: 2})
 
+	const [approved, setApproved] = useState(false)
+	console.log("approved: ", approved)
   const [host, setHost] = useState('')
   const [visitor, setVisitor] = useState({
     first_name: '',
@@ -37,6 +39,7 @@ const VisitorCert = (props) => {
     email: '',
     visit_location: '',
     visit_date: startDate,
+		vaccinated: null,
     fever: null,
     symptoms: null,
     positive: null,
@@ -46,6 +49,7 @@ const VisitorCert = (props) => {
     attest: null,
     host_employee_id: ''
   })
+	console.log(visitor)
 
   const dispatch = useDispatch()
 
@@ -57,7 +61,7 @@ const VisitorCert = (props) => {
   const hosts = users?.filter(u => u.id !== 10211).map(u => u.last_name)
 
   const handleOnChange = e => {
-    const { name, value } = e.targetJ
+    const { name, value } = e.target
     setVisitor({ ...visitor, [name]: value })
   }
 
@@ -73,12 +77,18 @@ const VisitorCert = (props) => {
     }
   }, [host])
 
+	useEffect(() => {
+		if (visitor.vaccinated === "1" && visitor.symptoms === "0" && visitor.fever === "0" && visitor.positive === "0" && visitor.quarantined === "0") {
+			setApproved(true)
+		} else {
+			setApproved(false)
+		}
+	},[visitor.vaccinated, visitor.symptoms, visitor.fever, visitor.positive, visitor.quarantined])
 
   const handleSubmit = (e) => {
     e.preventDefault()
     props.onSubmit(visitor)
   }
-
 
   return (
     <div>
@@ -133,7 +143,24 @@ const VisitorCert = (props) => {
             </div>
           </QuestionRow>
           <hr />
-          {/* Q1 fever */}
+					{/* Q1 vaccinated */}
+					<span>I am fully vaccinated against COVID-19 (fully vaccinated means it has been 2 weeks after second dose in a 2-dose series, i.e. Pfizer or Moderna vaccines, or 2 weeks after a single-dose vaccine, i.e. Johnson &amp; Johnson)</span>
+          <Radio
+            style={{ marginLeft: '1rem'}}
+            label='Yes'
+            name='vaccinated'
+            value={1}
+            onChange={ handleOnChange }
+          />
+          <Radio
+            style={{ marginLeft: '1rem'}}
+            label='No'
+            name='vaccinated'
+            value={0}
+            onChange={ handleOnChange }
+          />
+          <hr />
+          {/* Q2 fever */}
           <span>Do you currently have a fever of 100.4 degrees F or greater?</span>
           <Radio
             style={{ marginLeft: '1rem'}}
@@ -150,7 +177,7 @@ const VisitorCert = (props) => {
             onChange={ handleOnChange }
           />
           <hr />
-          {/* Q2 cough */}
+          {/* Q3 cough */}
             <div>
               <span >In the past 14 days, have you or anyone in your household had any COVID-related <a href="https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/symptoms.html" alt='CDC website' target="_blank" rel="noreferrer noopener">symptoms</a>, including fever, cough, shortness of breath, difficulty breathing, chills, muscle pain, sore throat, or new loss of taste or smell, that cannot be attributed to another health condition, in the past 14 days?</span>
               <Radio
@@ -169,7 +196,7 @@ const VisitorCert = (props) => {
               />
               <hr />
             </div>
-          {/* Q3 positive */}
+          {/* Q4 positive */}
             <div>
               <span>In the past 14 days, have you or anyone in your household gotten a positive result from a COVID-19 test that tested saliva or used a nose or throat swab? (not a blood test)</span>
               <Radio
@@ -188,7 +215,7 @@ const VisitorCert = (props) => {
               />
               <hr />
               </div>
-            {/* Q4 quarantined */}
+            {/* Q5 quarantined */}
               <div>
                 <span>In the past 14 days were you or anyone in your household notified by a medical provider, local department of health, employer, school, or other entity that they have had potential exposure to COVID-19?</span>
                 <Radio
@@ -207,26 +234,43 @@ const VisitorCert = (props) => {
                 />
                 <hr />
               </div>
-           
-          { visitor.symptoms && visitor.fever && visitor.positive && visitor.quarantined ?
-            <div>
-              <p>If you answer "yes" to any of the above questions, please reschedule your visit.</p>
-              <p>If you answer "no" to all of the above questions, your visit is approved. Please acknowledge the following:</p>
-                <div>
-                  <AttestationDiv>
-                    <Checkbox name="attest" value={1} onChange={ handleOnChange } />
-                    <span>I certify all answers are true and accurate to the best of my knowledge.</span>
-                  </AttestationDiv>
-                </div>
-              { visitor.attest  ?
-                <Button variant="raised"  onClick={handleSubmit}>Submit</Button>
-                :
-                null
-              }
+					{ visitor.symptoms && visitor.fever && visitor.positive && visitor.quarantined && visitor.vaccinated ? 
+						<div>
+							{ !approved ?
+								<div>
+									<p>If you are not fully vaccinated, we cannot approve your visit at this time.</p>
+									<p>If you are fully vaccinated but answer "yes" to any of the above health questions, please reschedule your visit.</p>
+									<Button variant="raised"  onClick={handleSubmit}>Submit</Button>
+								</div>
+								:
+								null
+							}
+						
+							{ approved ?
+								<div>
+									<p>If you are full vaccinated and answer "no" to all of the above health questions, your visit is approved. Please acknowledge the following:</p>
+									<div>
+										<AttestationDiv>
+											<Checkbox name="attest" value={1} onChange={ handleOnChange } />
+											<span>I certify all answers are true and accurate to the best of my knowledge.</span>
+										</AttestationDiv>
+									</div>
+									{ visitor.attest ?
+										<Button variant="raised"  onClick={handleSubmit}>Submit</Button>
+										:
+										null
+									}
+								</div>
+								:
+								null
+							}
+						
             </div>
             :
             null
-          }
+						
+					}
+          
         </Form>
       </div>
     </div>
